@@ -21,7 +21,7 @@ function BurgerConstructor({ingredientsList}) {
             <li><ConstructorItem item={ingredientsList[10]} moveable="true"/></li>
             <li><ConstructorItem item={ingredientsList[11]} moveable="true"/></li>
          </ul>
-         <ConstructorItem item={ingredientsList[array_size]} isLocked="true" type="bottom"/>
+         <ConstructorItem item={ingredientsList[array_size]} isLocked="true" position="(низ)" type="bottom"/>
          <ConstructorFooter amount={550}/>
       </div>
    )

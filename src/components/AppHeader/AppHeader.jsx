@@ -10,15 +10,15 @@ function AppHeader() {
             <li>
                <BurgerIcon type="primary"/>
             </li>
-            <li className="menulink text text_type_main-small">
-               Конструктор
+            <li>
+               <a href="/" className="text text_type_main-small menulink text-color-default">Конструктор</a>
             </li>
 
             <li>
                <ListIcon/>
             </li>
-            <li className="menulink text text_color_inactive">
-               Лента заказов
+            <li>
+               <a href="/" className="menulink text text_color_inactive">Лента заказов</a>
             </li>
          </p>
 
@@ -31,7 +31,7 @@ function AppHeader() {
                <ProfileIcon className="header-element" type="primary" />
             </li>
             <li className="menulink text text_color_inactive">
-               Личный кабинет
+               <a href="/" className="menulink text text_color_inactive">Личный кабинет</a>
             </li>
          </p>
 

@@ -14,4 +14,9 @@
 
 .menulink {
    margin: 10px;
+   text-decoration: none;
+}
+
+.text-color-default {
+   color: #eee;
 }
