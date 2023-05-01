@@ -1,0 +1,9 @@
+.ingredient_container {
+   margin: 3px;
+   border-radius: 5px;
+   1width: calc(50% - 150px);
+   width: 45%;
+   text-align: center;
+   display: inline-block;
+   vertical-align: top;
+}

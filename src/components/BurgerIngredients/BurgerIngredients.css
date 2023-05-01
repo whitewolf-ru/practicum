@@ -1,0 +1,50 @@
+
+.BurgerIngredients {
+   display: flex;
+   position: relative;
+   flex-wrap: wrap;
+   margin-right: 5px;
+   width: 50%;
+}
+
+.BurgerIngredients-section-title {
+   flex-basis: 100%;
+   text-align: left;
+   align: left;
+   list-style-type: none;
+   margin-left: 5px;
+   margin-top: 10px;
+}
+
+.BurgerIngredients-scroll-block {
+   position: relative;
+   max-height: calc(100vh - 250px);
+   overflow-y: auto;
+   display: flex;
+   align: left;
+   width: 100%;
+}
+
+.BurgerIngredients-group-block {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.BurgerIngredients-scroll-block::-webkit-scrollbar {
+   width: 3px;
+}
+
+.BurgerIngredients-scroll-block::-webkit-scrollbar-track {
+   width: 3px;
+   background-color: #333;
+}
+
+.BurgerIngredients-scroll-block::-webkit-scrollbar-thumb {
+   width: 5px;
+   background-color: #88f;
+}
+
+.IngredientsList {
+   margin-left: 0;
+   padding-left: 0;
+}
