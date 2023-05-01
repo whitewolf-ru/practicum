@@ -3,20 +3,20 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function Tabs() {
-   const [current, setCurrent] = React.useState('one')
+   const [current, setCurrent] = React.useState('buns')
    return (
      <div style={{ display: 'flex' }}>
-       <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+       <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
           <b className="text text_type_main-small">
              Булки
           </b>
        </Tab>
-       <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+       <Tab value="sauces" active={current === 'sauces'} onClick={setCurrent}>
           <b className="text text_type_main-small">
              Соусы
           </b>
        </Tab>
-       <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+       <Tab value="mains" active={current === 'mains'} onClick={setCurrent}>
           <b className="text text_type_main-small">
              Начинки
           </b>

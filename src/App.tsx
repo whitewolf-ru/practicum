@@ -16,10 +16,10 @@ function App() {
       <div></div>
       <div></div>
       <div></div>
-      <div className="container">
+      <main className="container">
          <BurgerIngredients ingredientsList={ingredientsList}/>
          <BurgerConstructor ingredientsList={ingredientsList}/>
-      </div>
+      </main>
       <div></div>
     </div>
   );

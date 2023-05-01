@@ -1,10 +1,15 @@
 
+import PropTypes from 'prop-types';
 import Ingredient from './../Ingredient/Ingredient.jsx';
 import Tabs from './../Tabs/Tabs.jsx';
 import './BurgerIngredients.css';
-import PropTypes from 'prop-types';
+import IngredientsPropsList from './../IngredientsPropsList/IngredientsPropsList.jsx';
 
 function BurgerIngredients({ingredientsList}) {
+   
+   const buns = ingredientsList.filter((item) => item.type === 'bun');
+   const mains = ingredientsList.filter((item) => item.type === 'main');
+   const sauces = ingredientsList.filter((item) => item.type === 'sauce');
 
    return (
       <div className="BurgerIngredients">
@@ -16,7 +21,7 @@ function BurgerIngredients({ingredientsList}) {
 
             <span className="BurgerIngredients-group-block">
             {
-              ingredientsList.filter(element => element.type==="bun").map(ingredient =>
+              buns.map(ingredient =>
                  <Ingredient ingredient={ingredient} key={ingredient._id}/>
               )
             }
@@ -26,7 +31,7 @@ function BurgerIngredients({ingredientsList}) {
             
             <span className="BurgerIngredients-group-block">
             {
-              ingredientsList.filter(element => element.type==="sauce").map(ingredient =>
+              sauces.map(ingredient =>
                  <Ingredient ingredient={ingredient} key={ingredient._id}/>
               )
             }
@@ -36,7 +41,7 @@ function BurgerIngredients({ingredientsList}) {
    
             <span className="BurgerIngredients-group-block">
             {
-              ingredientsList.filter(element => element.type==="main").map(ingredient =>
+              mains.map(ingredient =>
                  <Ingredient ingredient={ingredient} key={ingredient._id}/>
               )
             }
@@ -49,7 +54,7 @@ function BurgerIngredients({ingredientsList}) {
 }
 
 BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.array
+  ingredientsList: IngredientsPropsList
 };
 
 export default BurgerIngredients;

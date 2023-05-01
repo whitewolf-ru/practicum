@@ -2,7 +2,7 @@
 import './BurgerConstructor.css';
 import ConstructorItem from './../ConstructorItem/ConstructorItem.jsx';
 import ConstructorFooter from './../ConstructorFooter/ConstructorFooter.jsx';
-import PropTypes from 'prop-types';
+import IngredientsPropsList from './../IngredientsPropsList/IngredientsPropsList.jsx';
 
 function BurgerConstructor({ingredientsList}) {
    const array_size = ingredientsList.length-1;
@@ -28,7 +28,7 @@ function BurgerConstructor({ingredientsList}) {
 }
 
 BurgerConstructor.propTypes = {
-  ingredientsList: PropTypes.array
+  ingredientsList: IngredientsPropsList
 };
 
 export default BurgerConstructor;

@@ -1,6 +1,6 @@
 
+import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-
 import './ConstructorFooter.css';
 
 function ConstructorFooter({amount}) {
@@ -13,5 +13,9 @@ function ConstructorFooter({amount}) {
       </p>
    )
 }
+
+ConstructorFooter.propTypes = {
+  amount: PropTypes.number
+};
 
 export default ConstructorFooter;
