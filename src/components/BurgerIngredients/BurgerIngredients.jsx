@@ -1,9 +1,12 @@
 
+import React from 'react';
 import PropTypes from 'prop-types';
 import Ingredient from './../Ingredient/Ingredient.jsx';
 import Tabs from './../Tabs/Tabs.jsx';
 import './BurgerIngredients.css';
-import IngredientsPropsList from './../IngredientsPropsList/IngredientsPropsList.jsx';
+import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
+import WindowIngredient from './../WindowIngredient/WindowIngredient.jsx';
+import Modal from './../Modal/Modal.jsx';
 
 function BurgerIngredients({ingredientsList}) {
    
@@ -11,50 +14,74 @@ function BurgerIngredients({ingredientsList}) {
    const mains = ingredientsList.filter((item) => item.type === 'main');
    const sauces = ingredientsList.filter((item) => item.type === 'sauce');
 
+   const [[modalState,ingredient_selected],setModalState] = React.useState([false,null]);
+
+   function setModState(ingredient) {
+      setModalState([!modalState,ingredient]);
+   }
+
    return (
       <div className="BurgerIngredients">
          <Tabs/>
-         <div className="BurgerIngredients-scroll-block" style={{ display: "flex", flexWrap: "wrap" }}>
+         <div className="BurgerIngredients-scroll-block">
 
             <ul className="IngredientsList">
-            <li className="BurgerIngredients-section-title text text_type_main-medium"> Булки </li>
-
-            <span className="BurgerIngredients-group-block">
-            {
-              buns.map(ingredient =>
-                 <Ingredient ingredient={ingredient} key={ingredient._id}/>
-              )
-            }
-            </span>
-   
-            <li className="BurgerIngredients-section-title text text_type_main-medium"> Соусы </li>
-            
-            <span className="BurgerIngredients-group-block">
-            {
-              sauces.map(ingredient =>
-                 <Ingredient ingredient={ingredient} key={ingredient._id}/>
-              )
-            }
-            </span>
-   
-            <li className="BurgerIngredients-section-title text text_type_main-medium"> Начинки </li>
-   
-            <span className="BurgerIngredients-group-block">
-            {
-              mains.map(ingredient =>
-                 <Ingredient ingredient={ingredient} key={ingredient._id}/>
-              )
-            }
-            </span>
+               <li className="BurgerIngredients-section-title text text_type_main-medium"> Булки </li>
+    
+               <span className="BurgerIngredients-group-block">
+               {
+                 buns.map(ingredient =>
+                    <li className="BurgerIngredients-li"
+                       onClick={ (e) => { setModState(ingredient) } }
+                       key={ingredient._id}>
+                       <Ingredient ingredient={ingredient}/>
+                    </li>
+                 )
+               }
+               </span>
+      
+               <li className="BurgerIngredients-section-title text text_type_main-medium"> Соусы </li>
+               
+               <span className="BurgerIngredients-group-block">
+               {
+                 sauces.map(ingredient =>
+                    <li className="BurgerIngredients-li"
+                       onClick={ (e) => { setModState(ingredient) } }
+                       key={ingredient._id}>
+                       <Ingredient ingredient={ingredient}/>
+                    </li>
+                 )
+               }
+               </span>
+      
+               <li className="BurgerIngredients-section-title text text_type_main-medium"> Начинки </li>
+      
+               <span className="BurgerIngredients-group-block">
+               {
+                 mains.map(ingredient =>
+                    <li className="BurgerIngredients-li"
+                       onClick={ (e) => { setModState(ingredient) } }
+                       key={ingredient._id}>
+                       <Ingredient ingredient={ingredient}/>
+                    </li>
+                 )
+               }
+               </span>
             </ul>
    
          </div>
+         {
+         modalState &&
+            <Modal className="window" header="детали ингредиента" onClose={setModState}>
+               <WindowIngredient ingredient={ingredient_selected}/>
+            </Modal>
+         }
       </div>
    )
 }
 
 BurgerIngredients.propTypes = {
-  ingredientsList: IngredientsPropsList
+  ingredientsList: PropTypes.arrayOf(IngredientsPropsShape).isRequired
 };
 
 export default BurgerIngredients;

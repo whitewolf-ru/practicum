@@ -23,12 +23,19 @@
    display: flex;
    align: left;
    width: 100%;
+   flexWrap: wrap;
 }
 
 .BurgerIngredients-group-block {
    display: flex;
    flex-wrap: wrap;
 }
+
+.BurgerIngredients-li {
+   max-width: calc(50% - 20px);
+   min-width: calc(50% - 20px);
+}
+
 
 .BurgerIngredients-scroll-block::-webkit-scrollbar {
    width: 3px;

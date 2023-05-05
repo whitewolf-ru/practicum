@@ -1,9 +1,12 @@
 
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
+import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
 
 function ConstructorItem({item,moveable,type,isLocked,position}) {
    let name;
+
+   if (!item) return;
 
    switch (type) {
      case 'top': name = `${item.name} (верх)`
@@ -33,26 +36,12 @@ function ConstructorItem({item,moveable,type,isLocked,position}) {
             price={item.price}
             thumbnail={item.image}
          />
-         <p>{position}</p>
       </div>
    )
 }
 
 ConstructorItem.propTypes = {
-   item: PropTypes.shape({
-         _id: PropTypes.string.isRequired,
-         name: PropTypes.string.isRequired,
-         type: PropTypes.string.isRequired,
-         proteins: PropTypes.number,
-         fat: PropTypes.number,
-         carbohydrates: PropTypes.number,
-         calories: PropTypes.number,
-         price: PropTypes.number.isRequired,
-         image: PropTypes.string.isRequired,
-         image_mobile: PropTypes.string.isRequired,
-         image_large: PropTypes.string.isRequired,
-         __v: PropTypes.number
-      }).isRequired,
+   item: IngredientsPropsShape,
    moveable: PropTypes.bool,
    type: PropTypes.string,
    isLocked: PropTypes.bool,
