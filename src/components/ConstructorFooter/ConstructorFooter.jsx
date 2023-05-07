@@ -4,7 +4,6 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import './ConstructorFooter.css';
 
 function ConstructorFooter(props) {
-console.warn(props);
    return (
       <p className="ConstructorFooter text text_type_digits-medium" onClick={props.onClick}>
          {props.amount} <CurrencyIcon type="primary"/>

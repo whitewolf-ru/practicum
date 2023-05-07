@@ -14,10 +14,12 @@ function BurgerIngredients({ingredientsList}) {
    const mains = ingredientsList.filter((item) => item.type === 'main');
    const sauces = ingredientsList.filter((item) => item.type === 'sauce');
 
-   const [[modalState,ingredient_selected],setModalState] = React.useState([false,null]);
+   const [modalState,setModalState] = React.useState(false);
+   const [ingredient_selected,selectIngredient] = React.useState(null);
 
    function setModState(ingredient) {
-      setModalState([!modalState,ingredient]);
+      setModalState(!modalState);
+      selectIngredient(ingredient);
    }
 
    return (

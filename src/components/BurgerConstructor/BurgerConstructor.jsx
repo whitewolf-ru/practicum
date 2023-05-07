@@ -10,13 +10,8 @@ import Modal from './../Modal/Modal.jsx';
 
 function BurgerConstructor({ingredientsList}) {
    const array_size = ingredientsList.length-1;
-
    const [[modalState],setModalState] = React.useState([false,null]);
-
-   function setModState(order_id) {
-      console.log("%cМеняется статус окна","font-weight: bold;");
-      setModalState([!modalState,order_id]);
-   }
+   const setModState = (order_id) => { setModalState([!modalState,order_id]) }
 
    return (
       <div className="BurgerConstructor">
