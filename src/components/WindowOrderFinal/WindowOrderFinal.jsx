@@ -1,6 +1,7 @@
 
 import './WindowOrderFinal.css';
 import done from '../../images/done.jpg';
+import PropTypes from 'prop-types';
 
 function WindowOrderFinal({order_id}) {
    return (
@@ -13,5 +14,9 @@ function WindowOrderFinal({order_id}) {
       </span>
    )
 }
+
+WindowOrderFinal.propTypes = {
+   order_id: PropTypes.number
+};
 
 export default WindowOrderFinal;

@@ -1,6 +1,7 @@
 
 import React from "react";
 import { CloseIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
+import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
 
 const WindowIngredient = ({ ingredient }) => {
 
@@ -31,5 +32,9 @@ const WindowIngredient = ({ ingredient }) => {
       </div>
    )
 }
+
+WindowIngredient.propTypes = {
+  ingredient: IngredientsPropsShape
+};
 
 export default WindowIngredient;

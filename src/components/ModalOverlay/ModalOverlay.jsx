@@ -1,11 +1,15 @@
 
 import './ModalOverlay.css';
+import PropTypes from 'prop-types';
 
 const ModalOverlay = (props) => {
-   const window = props.children;
    return (    
-      <div className="window-overlay" onClick={props.onClick}> {window} </div>
+      <div className="window-overlay" onClick={props.onClick}></div>
     )
 }
+
+ModalOverlay.propTypes = {
+   onClick: PropTypes.func
+};
 
 export default ModalOverlay;
