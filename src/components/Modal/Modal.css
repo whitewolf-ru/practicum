@@ -1,0 +1,30 @@
+.window-modal {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 600px;
+   align-items: center;
+   margin: 0px auto;
+   padding: 20px;
+   background: #1c1c21;
+   color: #fff;
+   border-radius: 30px;
+}
+
+.modal-header {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+   margin: 0px auto;
+}
+
+.window-message {
+   margin-top: 20px;
+   text-align: center;
+}
+
+.close-icon {
+   padding: 10px 10px;
+   cursor: pointer;
+}
