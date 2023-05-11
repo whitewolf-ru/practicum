@@ -34,6 +34,7 @@
 .BurgerIngredients-li {
    max-width: calc(50% - 20px);
    min-width: calc(50% - 20px);
+   list-style-type: none;
 }
 
 

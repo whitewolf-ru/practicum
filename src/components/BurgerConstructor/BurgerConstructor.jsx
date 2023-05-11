@@ -1,50 +1,53 @@
 
 import React from 'react';
 import './BurgerConstructor.css';
-import PropTypes from 'prop-types';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import ConstructorItem from './../ConstructorItem/ConstructorItem.jsx';
 import ConstructorFooter from './../ConstructorFooter/ConstructorFooter.jsx';
-import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
 import WindowOrderFinal from './../WindowOrderFinal/WindowOrderFinal.jsx';
 import Modal from './../Modal/Modal.jsx';
+import TotalPrice from './../TotalPrice/TotalPrice.jsx';
+import { orderUpload } from './../../utils/burger-api.js';
+import { constructorContext } from '../../utils/constructorContext.js';
 
-function BurgerConstructor({ingredientsList}) {
-   const array_size = ingredientsList.length-1;
-   const [[modalState],setModalState] = React.useState([false,null]);
-   const setModState = (order_id) => { setModalState([!modalState,order_id]) }
+function BurgerConstructor() {
+   const ingredients = React.useContext(constructorContext);
+   const [modalState,setModalState] = React.useState(false);
+   const setModState = () => { setModalState(!modalState) }
+
+   const [orderId,setOrderId] = React.useState(0);
+
+   function orderProcess() {
+      console.log("orderProcess(): ingredients",ingredients);
+      let data = [];
+      ingredients.list.map(ingredient => { return data.push(ingredient._id) })
+      data.push(ingredients.bun._id);
+      console.log("data",data);
+      orderUpload(data,setOrderId).then((result) => { console.log("RESULT",result) })
+      setModalState(true);
+   }
 
    return (
       <div className="BurgerConstructor">
-         <ConstructorItem item={ingredientsList[0]} isLocked={true} type="top"/>
+         <ConstructorItem item={ingredients.bun} isLocked={true} type="top"/>
          <ul className="BurgerConstructor-scroll-block">
-            <li><ConstructorItem item={ingredientsList[1]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[2]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[3]} moveable={true} isLocked={true}/></li>
-            <li><ConstructorItem item={ingredientsList[4]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[6]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[7]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[8]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[9]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[10]} moveable={true}/></li>
-            <li><ConstructorItem item={ingredientsList[11]} moveable={true}/></li>
+            {ingredients.list.map(ingredient => <li key={ingredient._id}><ConstructorItem item={ingredient} moveable={true}/></li>)}
          </ul>
-         <ConstructorItem item={ingredientsList[array_size]} isLocked={true} type="bottom"/>
-         <ConstructorFooter amount={550}
-            onClick={ () => { setModState(550) } }
-         />
-
+         <ConstructorItem item={ingredients.bun} isLocked={true} type="bottom"/>
+         <p className="ConstructorFooter text text_type_digits-medium">
+            <TotalPrice/>
+            <Button htmlType="button" type="primary" size="small" onClick={orderProcess} style={{marginLeft: 10}}>
+               Оформить заказ
+            </Button>
+         </p>
          {
             modalState &&
                <Modal className="window" header="&nbsp;" onClose={setModState}>
-                  <WindowOrderFinal order_id={1234567}/>
+                  <WindowOrderFinal order_id={orderId}/>
                </Modal>
-            }
+         }
       </div>
    )
 }
-
-BurgerConstructor.propTypes = {
-  ingredientsList: PropTypes.arrayOf(IngredientsPropsShape).isRequired
-};
 
 export default BurgerConstructor;

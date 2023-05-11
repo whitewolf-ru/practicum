@@ -1,15 +1,14 @@
 
 import PropTypes from 'prop-types';
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import './ConstructorFooter.css';
+import ButtonOrderProcess from './../ButtonOrderProcess/ButtonOrderProcess.jsx';
+import TotalPrice from './../TotalPrice/TotalPrice.jsx';
 
 function ConstructorFooter(props) {
    return (
       <p className="ConstructorFooter text text_type_digits-medium" onClick={props.onClick}>
-         {props.amount} <CurrencyIcon type="primary"/>
-         <Button htmlType="button" type="primary" size="small" style={{marginLeft: 10}}>
-            Оформить заказ
-         </Button>
+         <TotalPrice amount={props.amount}/>
+         <ButtonOrderProcess/>
       </p>
    )
 }
