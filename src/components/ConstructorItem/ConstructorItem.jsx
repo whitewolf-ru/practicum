@@ -2,6 +2,7 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from 'prop-types';
 import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
+import styles from './ConstructorItem.module.css';
 
 function ConstructorItem({item,moveable,type,isLocked,position}) {
    let name;
@@ -19,24 +20,26 @@ function ConstructorItem({item,moveable,type,isLocked,position}) {
    }         
 
    return (
-      <div>
-      {  moveable ?
-         <DragIcon type="primary"/>
-         :
-         <li
-            style={{ display: "inline-block", width: 10 }}
-         ></li>
-         }
+      <li className={styles.element_container}>
+         <div className={styles.mover}>
+            {
+              moveable ?
+                 <DragIcon type="primary"/>
+              :
+                 <span> &nbsp; </span> 
+            }
+         </div>
 
          <ConstructorElement
             className="text text_type_main-small ml-50"
+            style={{display: "inline-block"}}
             isLocked={isLocked}
             type={type}
             text={name}
             price={item.price}
             thumbnail={item.image}
          />
-      </div>
+      </li>
    )
 }
 

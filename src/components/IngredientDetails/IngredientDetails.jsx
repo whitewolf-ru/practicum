@@ -1,17 +1,17 @@
 
 import React from "react";
-import { CloseIcon, CurrencyIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
+import styles from "./IngredientDetails.module.css";
 
-const WindowIngredient = ({ ingredient }) => {
+const IngredientDetails = ({ ingredient }) => {
 
    return (
       <div className="window-message text text_type_main-default">
-         <img src={ingredient.image_large}/>
+         <img src={ingredient.image_large} alt="alt"/>
          <p className="text text_type_main-large">{ingredient.name}</p>
 
          <center>
-         <table className="text_color_inactive" style={{ margin: "20px", textAlign: "center", width: "80%" }}>
+         <table className={`${styles.ingredient} text_color_inactive`}>
             <tbody>
                <tr>
                   <td> Калории, ккал </td>
@@ -33,8 +33,8 @@ const WindowIngredient = ({ ingredient }) => {
    )
 }
 
-WindowIngredient.propTypes = {
+IngredientDetails.propTypes = {
   ingredient: IngredientsPropsShape
 };
 
-export default WindowIngredient;
+export default IngredientDetails;

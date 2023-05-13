@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const constructorContext = React.createContext(null);
+export const ConstructorContext = React.createContext(null);

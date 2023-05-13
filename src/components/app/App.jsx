@@ -4,8 +4,8 @@ import AppHeader from './../AppHeader/AppHeader.jsx';
 import ingredientsLoad from './../../utils/burger-api.js';
 import BurgerIngredients from './../BurgerIngredients/BurgerIngredients.jsx';
 import BurgerConstructor from './../BurgerConstructor/BurgerConstructor.jsx';
-import { ingredientsContext } from '../../utils/ingredientsContext.js';
-import { constructorContext } from '../../utils/constructorContext.js';
+import { IngredientsContext } from '../../utils/ingredientsContext.js';
+import { ConstructorContext } from '../../utils/constructorContext.js';
 
 function App() {
 
@@ -15,9 +15,13 @@ function App() {
        loading: true
      })
 
-   React.useEffect(() => { ingredientsLoad().then((result) => { setState({ ingredients: result, error: false, loading: false }) }) }, [])
-
-   const priceTotal = { amount: 0 };
+   React.useEffect(() => {
+      ingredientsLoad()
+      .then((result) => { setState({ ingredients: result, error: false, loading: false }) })
+      .catch(function(error) {  
+         console.log("А так всё хорошо начиналось...");  
+      });
+   }, [])
 
    // Подразумевается, что булка передана только одна, поэтому берём первую попашуюся в полученном списке.
    // А всё остальное - не булки!
@@ -25,8 +29,6 @@ function App() {
       bun: state.ingredients.filter((item) => item.type === 'bun')[0],
       list: state.ingredients.filter((item) => item.type !== 'bun')
    };
-
-   console.log(constructorIngredients);
 
    // А теперь рандомно повыкидываем из списка всякое, чтобы проверять общую стоимость бутерброда
    const random = () => { return Math.floor(Math.random() * (constructorIngredients.list.length + 1)) }
@@ -49,18 +51,18 @@ function App() {
                 <></>
            }
           </div>
-          <div className="container">
+          <main className="container">
              {!state.loading && !state.error && state.ingredients.length>0 &&
                 <>
-                   <ingredientsContext.Provider value={state.ingredients}>
-                     <BurgerIngredients ingredientsList={state.ingredients}/>
-                   </ingredientsContext.Provider>
-                   <constructorContext.Provider value={constructorIngredients}>
+                   <IngredientsContext.Provider value={state.ingredients}>
+                     <BurgerIngredients/>
+                   </IngredientsContext.Provider>
+                   <ConstructorContext.Provider value={constructorIngredients}>
                      <BurgerConstructor/>
-                   </constructorContext.Provider>
+                   </ConstructorContext.Provider>
                 </>
              }
-          </div>
+          </main>
           <div></div>
         </div>
       </>

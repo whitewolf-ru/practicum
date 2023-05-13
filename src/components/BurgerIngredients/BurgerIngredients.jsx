@@ -1,24 +1,25 @@
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import Ingredient from './../Ingredient/Ingredient.jsx';
 import Tabs from './../Tabs/Tabs.jsx';
 import './BurgerIngredients.css';
-import IngredientsPropsShape from './../IngredientsPropsShape/IngredientsPropsShape.jsx';
-import WindowIngredient from './../WindowIngredient/WindowIngredient.jsx';
+import IngredientDetails from './../IngredientDetails/IngredientDetails.jsx';
 import Modal from './../Modal/Modal.jsx';
+import { IngredientsContext } from '../../utils/ingredientsContext.js';
+import useModal from './../../hooks/UseModal.jsx';
 
 function BurgerIngredients({ingredientsList}) {
    
-   const buns = ingredientsList.filter((item) => item.type === 'bun');
-   const mains = ingredientsList.filter((item) => item.type === 'main');
-   const sauces = ingredientsList.filter((item) => item.type === 'sauce');
+   const ingredients = React.useContext(IngredientsContext);
+   const buns = ingredients.filter((item) => item.type === 'bun');
+   const mains = ingredients.filter((item) => item.type === 'main');
+   const sauces = ingredients.filter((item) => item.type === 'sauce');
 
-   const [modalState,setModalState] = React.useState(false);
-   const [ingredient_selected,selectIngredient] = React.useState(null);
+   const [ingredientSelected,selectIngredient] = React.useState(null);
+   const { isModalOpen, openModal, closeModal } = useModal();
 
    function setModState(ingredient) {
-      setModalState(!modalState);
+      openModal();
       selectIngredient(ingredient);
    }
 
@@ -73,17 +74,14 @@ function BurgerIngredients({ingredientsList}) {
    
          </div>
          {
-         modalState &&
-            <Modal className="window" header="детали ингредиента" onClose={setModState}>
-               <WindowIngredient ingredient={ingredient_selected}/>
-            </Modal>
+            isModalOpen===true &&
+               <Modal className="window" header="детали ингредиента" onClose={closeModal}>
+                  <IngredientDetails ingredient={ingredientSelected}/>
+               </Modal>
          }
       </div>
    )
 }
 
-BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.arrayOf(IngredientsPropsShape).isRequired
-};
-
 export default BurgerIngredients;
+

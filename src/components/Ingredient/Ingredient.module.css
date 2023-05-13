@@ -1,0 +1,13 @@
+
+.ingredient_container {
+   text-align: center;
+   vertical-align: top;
+   position: relative;
+}
+
+.counter {
+   position: absolute;
+   width: 20px;
+   top: 0px;
+   left: 0px;
+}

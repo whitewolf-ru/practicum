@@ -14,14 +14,14 @@ const Modal = (props) => {
    const onClose = props.onClose;
 
    const keyCheck = (e) => {
-      if (e.keyCode === KEY_ESC) { props.onClose() }
+      if (e.keyCode === KEY_ESC) { onClose() }
    }
 
    React.useEffect(() => {
       const handleESCclose = (e) => { keyCheck(e) }
       document.addEventListener("keydown", handleESCclose);
       return () => document.removeEventListener("keydown", handleESCclose)                                                                                               
-   }, [onClose])
+   }, [])
 
    // Давим клик внутри окна
    function clickSuppressor(e) {
@@ -30,11 +30,11 @@ const Modal = (props) => {
 
    return ReactDOM.createPortal(    
       <>
-         <ModalOverlay onClick={props.onClose}/>
+         <ModalOverlay onClick={onClose}/>
          <div className="window-modal" onClick={clickSuppressor}>
             <p className="modal-header text text_type_main-medium">
                {props.header}
-               <CloseIcon onClick={props.onClose} className="close-icon"/>
+               <CloseIcon onClick={onClose} className="close-icon"/>
             </p>
             <div className="window-message text text_type_main-default">
                {props.children}
@@ -47,8 +47,8 @@ const Modal = (props) => {
 }
 
 Modal.propTypes = {
-   onClose: PropTypes.func,
-   header: PropTypes.string
+   header: PropTypes.string,
+   onClose: PropTypes.func
 };
 
 export default Modal;

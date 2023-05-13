@@ -1,0 +1,21 @@
+
+.element_container {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: nowrap;
+   text-align: center;
+   vertical-align: middle;
+}
+
+.li {
+   display: inline-block;
+   width: 10;
+   list-style-type: none;
+}
+
+.mover {
+   min-width: 32px;
+   display: inline-block;
+}
