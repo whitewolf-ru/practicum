@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ConstructorContext } from '../../utils/constructorContext.js';
 
 function ButtonOrderProcess() {
    return (

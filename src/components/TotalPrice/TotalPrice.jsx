@@ -1,15 +1,24 @@
 
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ConstructorContext } from '../../utils/constructorContext.js';
 import styles from './TotalPrice.module.css';
 
 function TotalPrice() {
-   const ingredients = React.useContext(ConstructorContext);	// Пусть будет так
-   const sum = ingredients.list.reduce(function (currentSum, element) { return currentSum + element.price }, 0)
+   const { items } = useSelector(state => state.constructorItems);
+
+   const sum = items.length>0 ?
+      items.reduce(
+         function (currentSum, element) {
+            return currentSum + element.price * (element.type === "bun" ? 2 : 1);
+         }, 0)
+      :
+      0;
+
    return (
       <span className={styles.total_price}>
-         {sum} <CurrencyIcon type="primary" className={styles.buckazoid}/>
+         {sum} <CurrencyIcon type="primary" className={styles.buckazoid} />
       </span>
    )
 }

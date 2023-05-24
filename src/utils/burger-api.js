@@ -2,17 +2,12 @@
 const API = "https://norma.nomoreparties.space/api";
 
 function checkResponse(response) {  
-  return response.ok ? Promise.resolve(response) : Promise.reject(new Error(response.statusText));
+   return response.ok ? response.json() : Promise.reject(new Error(response.statusText));
 }
 
-function json(response) {  
-  return response.json()  
-}
-
-const ingredientsLoad = async() => {
+const load = async() => {
    const result = await fetch(`${API}/ingredients`)  
       .then(checkResponse)  
-      .then(json)  
       .then(function(data) {  
          return data.data
       })
@@ -28,10 +23,13 @@ export const orderUpload = async(data,setOrderId) => {
       }    
    )
    .then(checkResponse)  
-   .then(json)  
-   .then(data => setOrderId(data.order.number))
+      .then(function(data) {
+         setOrderId(data.order.number);
+         return data;
+      })
 
    return result;
 }
 
-export default ingredientsLoad;
+export default load;
+export { checkResponse };
