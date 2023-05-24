@@ -39,20 +39,26 @@ function ConstructorItem({ item, itemIndex, moveable, type, isLocked, position, 
       }
    })
 
-   const [, ref] = useDrag({
+   let [, ref] = useDrag({
       type: "constructorItem",
       item: { itemIndex },
       collect: monitor => ({
          opacity: monitor.isDragging() ? 0.9 : 1
       })
-   });
+   })
+
+   if (isLocked) ref = null;
+   //<div>
+   //   {loadRequest && <h1>Загрузка...</h1>}
+   //   {loadFailed && "Произошла чудовищная ошибка!"}
+   //   {
+   //      !loadRequest && !loadFailed && list.length &&
+   //      <></>
+   //   }
+   //</div>
 
    return (
-      <span className={styles.element_container}
-         ref={
-            (e) => { ref(e); dropTarget(e); }
-         }
-      >
+      <span className={styles.element_container} ref={isLocked ? null : (e) => { ref(e); dropTarget(e); }}>
          <div className={styles.mover}>
             {moveable ? <DragIcon type="primary" /> : <span> &nbsp; </span>}
          </div>
