@@ -20,11 +20,9 @@ function App() {
 
    React.useEffect(() => {
       // Отправляем action-функцию
-      dispatch(ingredientsLoad())
+      dispatch(ingredientsLoad());
    }, [dispatch])
 
-   // Подразумевается, что булка передана только одна, поэтому берём первую попашуюся в полученном списке.
-   // А всё остальное - не булки!
    const list = ingredients.list ? ingredients.list : [];
 
    return (

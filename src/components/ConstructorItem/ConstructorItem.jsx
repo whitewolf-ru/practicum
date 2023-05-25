@@ -29,7 +29,7 @@ function ConstructorItem({ item, itemIndex, moveable, type, isLocked, position, 
    // Прицепляем к элементу уникальный идентификатор, чтобы было, что потом удалять. Если в конструктор попадают одинаковые ингредиенты, то у них должны быть разные unique_id.
    item.uniqueId = unique_id;
 
-   const [, dropTarget] = useDrop({
+   const [{ isHover }, dropTarget] = useDrop({
       accept: "constructorItem",
       collect: monitor => ({
          isHover: monitor.isOver()
@@ -38,6 +38,8 @@ function ConstructorItem({ item, itemIndex, moveable, type, isLocked, position, 
          dispatch({ type: ITEMS_SWAP, itemSource: itemIndex, itemTarget: item.itemIndex });
       }
    })
+
+   const style = isHover ? { boxShadow: "inset 1px 1px 30px 1px rgba(50,50,255,0.5)" } : { boxShadow: "0px 0px #000" };
 
    let [, ref] = useDrag({
       type: "constructorItem",
@@ -48,24 +50,15 @@ function ConstructorItem({ item, itemIndex, moveable, type, isLocked, position, 
    })
 
    if (isLocked) ref = null;
-   //<div>
-   //   {loadRequest && <h1>Загрузка...</h1>}
-   //   {loadFailed && "Произошла чудовищная ошибка!"}
-   //   {
-   //      !loadRequest && !loadFailed && list.length &&
-   //      <></>
-   //   }
-   //</div>
 
    return (
-      <span className={styles.element_container} ref={isLocked ? null : (e) => { ref(e); dropTarget(e); }}>
+      <span className={styles.element_container} ref={isLocked ? null : (e) => { ref(e); dropTarget(e); }} style={style}>
          <div className={styles.mover}>
             {moveable ? <DragIcon type="primary" /> : <span> &nbsp; </span>}
          </div>
 
          <ConstructorElement
             className="text text_type_main-small ml-50"
-            style={{ display: "inline-block" }}
             isLocked={isLocked}
             type={type}
             text={name}

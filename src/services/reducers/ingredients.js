@@ -1,5 +1,5 @@
 import {
-   INGREDIENTS_LOAD, INGREDIENTS_LOAD_ERROR, INGREDIENTS_LOAD_SUCCESS, INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT
+   INGREDIENTS_LOAD_REQUEST, INGREDIENTS_LOAD_ERROR, INGREDIENTS_LOAD_SUCCESS, INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT
 } from '../actions/ingredientsActions.js';
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 const ingredientsReducer = (state = initialState, action) => {
    switch (action.type) {
 
-      case INGREDIENTS_LOAD: {
+      case INGREDIENTS_LOAD_REQUEST: {
          return {
             ...state,
             loadRequest: true,
@@ -28,13 +28,13 @@ const ingredientsReducer = (state = initialState, action) => {
       case INGREDIENTS_LOAD_ERROR: {
          return {
             ...state,
+            ingredients: [],
             loadFailed: true,
             loadRequest: false
          };
       }
 
       case INGREDIENTS_COUNTER_INCREMENT: {
-
          return {
             ...state,
             ingredients: {
@@ -47,9 +47,7 @@ const ingredientsReducer = (state = initialState, action) => {
                         { ...item, counter: 1 }
                      : item
                )
-
             }
-
          };
       }
 

@@ -11,11 +11,13 @@ import useModal from './../../hooks/UseModal.jsx';
 import { ITEM_UPDATE, ITEM_DELETE } from '../../services/actions/itemCurrent.js';
 
 function BurgerIngredients() {
-   const { ingredients } = useSelector(state => state.ingredientsItems);
 
-   const buns = ingredients.list.filter((item) => item.type === 'bun');
-   const mains = ingredients.list.filter((item) => item.type === 'main');
-   const sauces = ingredients.list.filter((item) => item.type === 'sauce');
+   const ingredientsGet = () => state => state.ingredientsItems.ingredients.list;
+   const ingredients = useSelector(ingredientsGet());
+
+   const buns = ingredients.filter((item) => item.type === 'bun');
+   const mains = ingredients.filter((item) => item.type === 'main');
+   const sauces = ingredients.filter((item) => item.type === 'sauce');
 
    const [ingredientSelected, selectIngredient] = React.useState(null);
    const { isModalOpen, modalOpen, modalClose } = useModal();

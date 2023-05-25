@@ -1,7 +1,7 @@
 
-import { ITEM_ADD, ITEM_DELETE, ITEMS_SWAP } from '../actions/constructorActions.js';
+import { ITEM_ADD, ITEM_DELETE, ITEMS_SWAP, BUN_DELETE, BUN_ADD } from '../actions/constructorActions.js';
 
-const initialState = { items: [] }
+const initialState = { bun: null, items: []};
 
 const constructorItemsReducer = (state = initialState, action) => {
 
@@ -9,21 +9,43 @@ const constructorItemsReducer = (state = initialState, action) => {
 
       case ITEM_ADD: {
          return {
+            ...state,
+            bun: state.bun,
             items: [...state.items, action.item]
+         }
+      }
+
+      case BUN_ADD: {
+         return {
+            ...state,
+            bun: action.item,
+            items: [...state.items]
+         }
+      }
+
+      case BUN_DELETE: {
+         return {
+            ...state,
+            bun: null,
+            items: [...state.items]
          }
       }
 
       case ITEM_DELETE: {
          return {
+            ...state,
+            bun: state.bun,
             items: state.items.filter((item) => item.uniqueId !== action.uniqueId)
-         };
+         }
       }
 
       case ITEMS_SWAP: {
-         [state.items[action.itemTarget], state.items[action.itemSource]]  = [state.items[action.itemSource], state.items[action.itemTarget]];
+         [state.items[action.itemTarget], state.items[action.itemSource]] = [state.items[action.itemSource], state.items[action.itemTarget]];
          return {
-            items: state.items
-         };
+            ...state,
+            bun: state.bun,
+            items: [...state.items]
+         }
       }
 
       default: { return state }
