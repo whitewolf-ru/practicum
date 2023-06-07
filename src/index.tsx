@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+
+import store from './services/store.js';
 import './index.css';
 import App from './components/app/App.jsx';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from "react-redux";
-import store from './services/store.js';
 
 const root = ReactDOM.createRoot(
    document.getElementById('root') as HTMLElement
@@ -13,9 +15,10 @@ const root = ReactDOM.createRoot(
 root.render(
    <React.StrictMode>
       <Provider store={store}>
-         <App />
+         <BrowserRouter>
+            <App />
+         </BrowserRouter>
       </Provider>
-      <div id="react-modals"></div>
    </React.StrictMode>
 );
 

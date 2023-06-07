@@ -17,10 +17,13 @@ export function ingredientsLoad() {
          loadRequest: true
       })
 
+console.log("Начинается загрузка булок");
+
       fetch(`${API}/ingredients`)
          .then(checkResponse)
          .then(res => {
             if (res && res.success) {
+               console.log("ingredientsLoad(): булки загрузились");
                dispatch({
                   type: INGREDIENTS_LOAD_SUCCESS,
                   ingredients: {

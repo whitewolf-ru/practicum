@@ -4,7 +4,7 @@
    position: relative;
    flex-wrap: wrap;
    margin-right: 5px;
-   width: 50%;
+   width: 600px;
 }
 
 .BurgerIngredients-section-title {
@@ -35,6 +35,8 @@
    max-width: calc(50% - 20px);
    min-width: calc(50% - 20px);
    list-style-type: none;
+   color: #fff;
+   text-decoration: none;
 }
 
 

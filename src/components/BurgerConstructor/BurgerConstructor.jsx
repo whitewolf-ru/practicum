@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Navigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 import { nanoid } from '@reduxjs/toolkit'
 
@@ -13,6 +14,7 @@ import Modal from './../Modal/Modal.jsx';
 import TotalPrice from './../TotalPrice/TotalPrice.jsx';
 import useModal from './../../hooks/UseModal.jsx';
 import { orderUpload } from "../../services/actions/order.js";
+import { cookieGet } from "../../utils/functions.js";
 import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions.js';
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions.js';
 
@@ -65,10 +67,13 @@ function BurgerConstructor() {
    const orderId = useSelector(state => state.order.orderId);
 
    function orderProcess() {
+      const loggedIn = cookieGet("username") && cookieGet("username") !== "" ? true : false;
       let data = [];
       items.map(ingredient => { return data.push(ingredient._id) })
-      dispatch(orderUpload(data));
-      modalOpen();
+      if (loggedIn) {
+         dispatch(orderUpload(data));
+         modalOpen();
+      }
    }
 
    return (
@@ -79,8 +84,8 @@ function BurgerConstructor() {
          <ul className={styles.burgerconstructor_scroll_block} ref={dropTarget}>
             {
                items &&
-                  items.map((item, i) => <li key={nanoid()}><ConstructorItem item={item} itemIndex={i} moveable={true} handleClose={itemDelete} style={dropStyle} /></li>)
-}
+               items.map((item, i) => <li key={nanoid()}><ConstructorItem item={item} itemIndex={i} moveable={true} handleClose={itemDelete} style={dropStyle} /></li>)
+            }
          </ul>
 
          {bun && <ConstructorItem item={bun} isLocked={true} type="bottom" />}
