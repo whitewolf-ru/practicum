@@ -1,23 +1,18 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from "react-redux";
-//import { useNavigate } from "react-router-dom";
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useDispatch } from "react-redux";
 
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import AppHeader from "./../components/AppHeader/AppHeader.jsx";
 import styles_global from "./../styles.module.css";
-//import styles './forgot-password.css';
-import ResetPassword from './reset-password.jsx';
 import { passwordForgot } from "../services/actions/userActions.js";
 
 function ForgotPassword() {
 
-   const { password_reset_step } = useSelector(state => state.user);
+   //const { password_reset_step } = useSelector(state => state.user);
    const dispatch = useDispatch();
-   const [email, setEmail] = React.useState('')
+   const [email, setEmail] = React.useState('');
    const onEmailChange = e => { setEmail(e.target.value) }
 
    const handleSubmit = (e) => {

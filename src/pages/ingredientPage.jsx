@@ -1,47 +1,34 @@
 
 import React from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './ingredient.css';
-import Modal from './../components/Modal/Modal.jsx';
+import styles from './ingredientPage.module.css';
 import IngredientDetails from './../components/IngredientDetails/IngredientDetails.jsx';
 
 function Ingredient() {
-
-   let ingredientId = useParams().id.substring(1);
-
-   console.log("%cingredientsPage","color:blue");
-
+   const ingredientId = useParams().id.substring(1);
    const location = useLocation();
-   console.log("ingredientsPage: location", location);
 
    // Смотрим, откуда пришли
    const source = location.state && location.state.background;
-   console.log("ingredientsPage: source", source);
-
-   const navigate = useNavigate();
 
    const ingredientsGet = () => state => state.ingredientsItems.ingredients.list;
    const ingredients = useSelector(ingredientsGet());
-   const modalCloseHandler = () => navigate(-1);
-   const item = ingredients ? ingredients.filter((item) => { return item._id === ingredientId })[0] : null;
+   const item = ingredients ? ingredients.filter((item) => { return item._id === ingredientId })[0] : { _id: "0" }
 
    if (source) {
       return (
-         <div>
-            <Modal className="window" header="детали ингредиента" onClose={() => modalCloseHandler()}>
-               <IngredientDetails ingredient={item} />
-            </Modal>
-         </div>
+         <Link key={item._id} to={{ pathname: `/ingredient/:${item._id}` }} replace={true} className={styles.link}>
+            <IngredientDetails ingredient={item} />
+         </Link >
       )
    }
 
    // Приход по прямой ссылке
    return (
-      <div>
-         <IngredientDetails ingredient={item} />
-      </div>
+      <IngredientDetails ingredient={item} />
    )
 }
 

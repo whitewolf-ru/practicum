@@ -6,10 +6,9 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 
 import styles_global from "./../../styles.module.css";
 import styles from './UserProfile.module.css';
-import { cookieGet, userGet } from "../../utils/functions.js";
+import { cookieGet } from "../../utils/functions.js";
 import { userProfileUpdate } from "../../services/actions/userActions.js";
 import { userLoad } from "../../services/actions/userActions.js";
-
 
 export function UserProfile() {
 

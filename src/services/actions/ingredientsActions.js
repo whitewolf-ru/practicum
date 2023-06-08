@@ -1,6 +1,6 @@
 
 import { API } from "../settings.js";
-import { checkResponse } from "../../utils/burger-api.js";
+import { api, checkResponse } from "../../utils/burger-api.js";
 
 export const INGREDIENTS_LOAD_REQUEST = 'INGREDIENTS_LOAD_REQUEST';
 export const INGREDIENTS_LOAD_ERROR = 'INGREDIENTS_LOAD_ERROR';
@@ -17,18 +17,12 @@ export function ingredientsLoad() {
          loadRequest: true
       })
 
-console.log("Начинается загрузка булок");
-
-      fetch(`${API}/ingredients`)
-         .then(checkResponse)
+      api("ingredients")
          .then(res => {
             if (res && res.success) {
-               console.log("ingredientsLoad(): булки загрузились");
                dispatch({
                   type: INGREDIENTS_LOAD_SUCCESS,
-                  ingredients: {
-                     list: res.data
-                  }
+                  ingredients: { list: res.data }
                })
             } else {
                dispatch({ type: INGREDIENTS_LOAD_ERROR });

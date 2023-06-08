@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -7,20 +7,17 @@ import React from 'react';
 import styles_global from "./../styles.module.css";
 import styles from './login.module.css';
 import { login } from "../services/actions/userActions.js";
+import { useForm } from "..//hooks/UseForm.js";
 
 const Login = () => {
 
    const dispatch = useDispatch();
 
-   const [email, setEmail] = React.useState('');
-   const onEmailChange = e => { setEmail(e.target.value) };
-
-   const [password, setPassword] = React.useState('');
-   const onPasswordChange = e => { setPassword(e.target.value) };
+   const { values, handleChange } = useForm({ email: "", password: "" });
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      dispatch(login({ email: email, password: password }));
+      dispatch(login(values));
    }
 
    return (
@@ -29,8 +26,8 @@ const Login = () => {
             Вход
             <form onSubmit={handleSubmit} className={`${styles_global.inputs} text text_color_inactive`}>
                <div className={styles_global.inputs}>
-                  <Input value={email} onChange={onEmailChange} placeholder="E-mail" />
-                  <Input value={password} onChange={onPasswordChange} placeholder="пароль" />
+                  <Input name="email" value={values.email} onChange={handleChange} placeholder="E-mail" />
+                  <Input name="password" value={values.password} onChange={handleChange} placeholder="пароль" />
                   <Button htmlType="submit"> Войти </Button>
                </div>
             </form>

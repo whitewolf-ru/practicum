@@ -1,8 +1,5 @@
 
-import { Navigate } from "react-router-dom";
-
-import { API } from "../settings.js";
-import { checkResponse } from "../../utils/burger-api.js";
+import { api } from "../../utils/burger-api.js";
 
 export const USER_LOGIN = 'USER_LOGIN';
 
@@ -42,15 +39,15 @@ export function register(data) {
 
       console.log("action", data);
 
-      fetch(`${API}/auth/register`,
+      api("auth/register",
          {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: data.email, password: data.password, name: data.name })
          }
+
       )
 
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                console.log("res", res);
@@ -83,15 +80,13 @@ export function login(data) {
 
       console.log("login action", data);
 
-      fetch(`${API}/auth/login`,
+      api("auth/login",
          {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: data.email, password: data.password })
          }
       )
-
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                console.log("0k", res);
@@ -123,15 +118,13 @@ export function passwordForgot(data) {
    return function (dispatch) {
       dispatch({ type: PASSWORD_FORGOT_REQUEST })
 
-      fetch(`${API}/password-reset`,
+      api("password-reset",
          {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: data.email })
          }
       )
-
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                dispatch({ type: PASSWORD_FORGOT_SUCCESS });
@@ -159,15 +152,13 @@ export function passwordReset(data) {
 
       console.log("action", data);
 
-      fetch(`${API}/password-reset/reset`,
+      api("password-reset",
          {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: data.password, token: data.token })
          }
       )
-
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                console.log("res", res);
@@ -200,15 +191,13 @@ export function userProfileUpdate(data) {
    return function (dispatch) {
       dispatch({ type: PROFILE_UPDATE_REQUEST })
 
-      fetch(`${API}/auth/user`,
+      api("auth/user",
          {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: data.name, email: data.email, password: data.password, token: data.accessToken })
          }
       )
-
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                console.log("res", res);
@@ -240,12 +229,12 @@ export function userLoad(token) {
    return function (dispatch) {
       dispatch({ type: USER_LOAD_REQUEST })
       console.log("userLoad() action", token);
-      fetch(`${API}/auth/user`,
+
+      api("auth/user",
          {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', authorization: token },
          })
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                console.log("res", res);
@@ -261,7 +250,7 @@ export function userLoad(token) {
          .catch(err => {
             console.log("Облом!", err);
             //dispatch({ type: USER_LOAD_ERROR });
-            if (err.message == "jwt expired") {
+            if (err.message === "jwt expired") {
                console.log("Жетончик протух");
             }
          })

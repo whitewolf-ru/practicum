@@ -2,15 +2,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import {useLocation, useNavigate} from 'react-router-dom';
-
 
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles_global from "./../styles.module.css";
 import { passwordReset } from "../services/actions/userActions.js";
-
-import styles from './reset-password.module.css';
 
 function PasswordReset() {
 
@@ -27,7 +23,7 @@ function PasswordReset() {
       console.log('password=%s, code=%s', password, code);
       dispatch(passwordReset({ password: password, token: code }));
    }
-
+   
    return (
       <div className={styles_global.page_container}>
          <div className={styles_global.inputs}>

@@ -11,8 +11,6 @@ import BurgerConstructor from "./../BurgerConstructor/BurgerConstructor.jsx";
 export default function Main() {
 
    const { ingredients, loadRequest, loadFailed } = useSelector(state => state.ingredientsItems);
-
-   console.log("%cMAIN","color:blue");
    const list = ingredients.list ? ingredients.list : [];
 
    return (

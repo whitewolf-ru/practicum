@@ -1,5 +1,4 @@
-import { API } from "../settings.js";
-import { checkResponse } from "../../utils/burger-api.js";
+import { api } from "../../utils/burger-api.js";
 
 export const ORDER_UPDATE_REQUEST = 'ORDER_UPDATE_REQUEST';
 export const ORDER_UPDATE_SUCCESS = 'ORDER_UPDATE_SUCCESS';
@@ -11,7 +10,7 @@ export function orderUpload(data) {
 
       dispatch({ type: ORDER_UPDATE_REQUEST })
 
-      fetch(`${API}/orders`,
+      api("orders",
          {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -19,7 +18,6 @@ export function orderUpload(data) {
          }
       )
 
-         .then(checkResponse)
          .then(res => {
             if (res && res.success) {
                dispatch({

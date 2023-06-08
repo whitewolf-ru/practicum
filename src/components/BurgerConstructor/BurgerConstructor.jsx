@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 import { nanoid } from '@reduxjs/toolkit'
 
@@ -9,12 +9,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from './BurgerConstructor.module.css';
 import ConstructorItem from './../ConstructorItem/ConstructorItem.jsx';
-import OrderDetails from './../OrderDetails/OrderDetails.jsx';
-import Modal from './../Modal/Modal.jsx';
 import TotalPrice from './../TotalPrice/TotalPrice.jsx';
-import useModal from './../../hooks/UseModal.jsx';
-import { orderUpload } from "../../services/actions/order.js";
-import { cookieGet } from "../../utils/functions.js";
 import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions.js';
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions.js';
 
@@ -24,8 +19,9 @@ function BurgerConstructor() {
    const { items, bun } = useSelector(itemsGet());
    const ingredientsGet = () => state => state.ingredientsItems.ingredients.list;
    const ingredients = useSelector(ingredientsGet());
-   const { isModalOpen, modalOpen, modalClose } = useModal();
+
    const dispatch = useDispatch();
+   const location = useLocation();
 
    // Удаление ингредиентов
    function itemDelete(uniqueId, itemId) {
@@ -64,18 +60,6 @@ function BurgerConstructor() {
 
    const dropStyle = isHover ? { background: "#eee" } : { background: "#0f0" };
 
-   const orderId = useSelector(state => state.order.orderId);
-
-   function orderProcess() {
-      const loggedIn = cookieGet("username") && cookieGet("username") !== "" ? true : false;
-      let data = [];
-      items.map(ingredient => { return data.push(ingredient._id) })
-      if (loggedIn) {
-         dispatch(orderUpload(data));
-         modalOpen();
-      }
-   }
-
    return (
       <div className={styles.BurgerConstructor}>
 
@@ -92,17 +76,12 @@ function BurgerConstructor() {
 
          <p className={`${styles.constructor_footer} text text_type_digits-medium`}>
             <TotalPrice className="mr10" />
-            <Button htmlType="button" type="primary" size="small" onClick={orderProcess}>
-               Оформить заказ
-            </Button>
+            <Link to={"/orderProcess"} state={{ background: location }} className="text BurgerIngredients-li">
+               <Button htmlType="button" type="primary" size="small">
+                  Оформить заказ
+               </Button>
+            </Link>
          </p>
-         {
-            isModalOpen &&
-            <Modal className="window" header="&nbsp;" onClose={modalClose}>
-               <OrderDetails orderId={orderId} />
-            </Modal>
-         }
-
       </div>
    )
 }

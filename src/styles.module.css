@@ -9,6 +9,14 @@
    border: 0px solid #fff;
 }
 
+.page {
+   //width: 1280px;
+   margin: 0px auto 10px ;
+   //background: #131316;
+   text-align: center;
+   border: 0px solid #fff;
+}
+
 .input {
    border-radius: 15px;
    color: #fff;
