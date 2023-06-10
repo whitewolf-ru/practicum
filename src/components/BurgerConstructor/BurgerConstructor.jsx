@@ -36,6 +36,9 @@ function BurgerConstructor() {
          dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: bun._id });
       }
 
+      // А давайте запихнём наноид сюда!
+      item.uuid = nanoid();
+
       item.type === "bun" ? dispatch({ type: BUN_ADD, item: item }) : dispatch({ type: ITEM_ADD, item: item });
 
       dispatch({ type: INGREDIENTS_COUNTER_INCREMENT, item: item });
@@ -68,7 +71,7 @@ function BurgerConstructor() {
          <ul className={styles.burgerconstructor_scroll_block} ref={dropTarget}>
             {
                items &&
-               items.map((item, i) => <li key={nanoid()}><ConstructorItem item={item} itemIndex={i} moveable={true} handleClose={itemDelete} style={dropStyle} /></li>)
+               items.map((item, i) => <li key={item.uuid}><ConstructorItem item={item} itemIndex={i} moveable={true} handleClose={itemDelete} style={dropStyle} /></li>)
             }
          </ul>
 
@@ -76,11 +79,14 @@ function BurgerConstructor() {
 
          <p className={`${styles.constructor_footer} text text_type_digits-medium`}>
             <TotalPrice className="mr10" />
-            <Link to={"/orderProcess"} state={{ background: location }} className="text BurgerIngredients-li">
-               <Button htmlType="button" type="primary" size="small">
-                  Оформить заказ
-               </Button>
-            </Link>
+            {
+               bun && items &&
+               <Link to={"/orderProcess"} state={{ background: location }} className="text BurgerIngredients-li">
+                  <Button htmlType="button" type="primary" size="small">
+                     Оформить заказ
+                  </Button>
+               </Link>
+            }
          </p>
       </div>
    )

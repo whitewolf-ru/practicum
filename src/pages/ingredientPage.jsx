@@ -16,7 +16,18 @@ function Ingredient() {
 
    const ingredientsGet = () => state => state.ingredientsItems.ingredients.list;
    const ingredients = useSelector(ingredientsGet());
-   const item = ingredients ? ingredients.filter((item) => { return item._id === ingredientId })[0] : { _id: "0" }
+   const item = ingredients ?
+      ingredients.filter((item) => { return item._id === ingredientId })[0]
+      :
+      {
+         _id: "0",
+         name: "По-видимому, это проблема должна уйти в продакшне",
+         type: "some secret type",
+         price: 1,
+         image: "some porn pic",
+         image_mobile: "some mobile porn pic",
+         image_large: "some huge porn pic"
+      }
 
    if (source) {
       return (

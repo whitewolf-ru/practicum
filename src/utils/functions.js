@@ -31,7 +31,7 @@ export function cookieSet(name, value, props) {
    document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
+export function cookieDelete(name) {
    cookieSet(name, null, { expires: -1 });
 }
 
@@ -45,7 +45,7 @@ export async function userGet() {
             console.log("res.user", res.user);
             return res.user;
          } else {
-            console.log("Какая-то шляпа с реквизитами!", res);
+            console.log("Не вышло", res);
          }
       })
 

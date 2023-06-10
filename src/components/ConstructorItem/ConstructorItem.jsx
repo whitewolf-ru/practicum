@@ -64,6 +64,7 @@ function ConstructorItem({ item, itemIndex, moveable, type, isLocked, position, 
             text={name}
             price={item.price}
             thumbnail={item.image}
+            alt={item.name}
             item_id={item._id}
             unique_id={unique_id}
             handleClose={() => handleClose(unique_id, item._id)}

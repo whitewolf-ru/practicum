@@ -23,7 +23,7 @@
    display: flex;
    align: left;
    width: 100%;
-   flexWrap: wrap;
+   flex-wrap: wrap;
 }
 
 .BurgerIngredients-group-block {

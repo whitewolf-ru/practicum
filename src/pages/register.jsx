@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 
-import { Input, Button, ShowIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import React from 'react';
 import styles_global from "./../styles.module.css";
@@ -33,8 +33,8 @@ const Register = () => {
             Регистрация
             <form onSubmit={handleSubmit} className={`${styles_global.inputs} text text_color_inactive`}>
                <Input value={name} onChange={onNameChange} placeholder="Имя" />
-               <Input value={email} onChange={onEmailChange} type="email" placeholder="E-mail" />
-               <Input value={password} onChange={onPasswordChange} type="password" icon={"ShowIcon"} placeholder="Пароль" />
+               <EmailInput value={email} onChange={onEmailChange} type="email" placeholder="E-mail" />
+               <PasswordInput value={password} onChange={onPasswordChange} type="password" icon={"ShowIcon"} placeholder="Пароль" />
                <Button htmlType="submit"> Зарегистрироваться </Button>
             </form>
             <p>

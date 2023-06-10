@@ -1,12 +1,30 @@
+
 import { API } from "../services/settings.js";
 
 export const checkResponse = (response) => {
-   return response.ok ? response.json() : response.json().then((err) => Promise.reject(err));
+  if (response.ok) return response.json();
+  return Promise.reject(`Ошибка ${response.status}`);
+};
+
+const checkSuccess = (response) => {
+  if (response && response.success) {
+    return response;
+  }
+  return Promise.reject(`Ответ не success: ${response}`);
 };
 
 export function api(method, options) {
    return fetch(API + method, options).then(checkResponse);
 }
+
+// to be updated
+// const getIngredients =  () => request("ingredients")
+// Это, конечно, здорово, но непонятно, как делать dispatch и прочую магию при возврате ошибки
+export const api_request = (method, options) => {
+  return fetch(API + method, options)
+    .then(checkResponse)
+    .then(checkSuccess);
+};
 
 export const login = async data => {
    return await fetch(`${API}/auth/login`, {

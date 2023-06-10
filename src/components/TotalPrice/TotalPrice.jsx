@@ -12,13 +12,12 @@ function TotalPrice() {
    
    const sum = React.useMemo(
       function () {
-         const bunPrice = bun !== null ? bun.price * 2 : 0;
-         const itemsPrice = items.length > 0 ?
+         const bunPrice = bun && bun !== null ? bun.price * 2 : 0;
+         const itemsPrice = items?.length > 0 ?
             items.reduce(
                function (currentSum, element) {
                   return currentSum + element.price * (element.type === "bun" ? 2 : 1);
                }, 0)
-
             :
             0
          const sum = bunPrice + itemsPrice;

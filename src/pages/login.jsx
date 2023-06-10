@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import React from 'react';
 import styles_global from "./../styles.module.css";
@@ -26,8 +26,8 @@ const Login = () => {
             Вход
             <form onSubmit={handleSubmit} className={`${styles_global.inputs} text text_color_inactive`}>
                <div className={styles_global.inputs}>
-                  <Input name="email" value={values.email} onChange={handleChange} placeholder="E-mail" />
-                  <Input name="password" value={values.password} onChange={handleChange} placeholder="пароль" />
+                  <EmailInput name="email" value={values.email} onChange={handleChange} placeholder="E-mail" />
+                  <PasswordInput name="password" value={values.password} onChange={handleChange} placeholder="пароль" />
                   <Button htmlType="submit"> Войти </Button>
                </div>
             </form>

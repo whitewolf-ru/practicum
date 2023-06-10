@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles_global from "./../../styles.module.css";
 import styles from './UserProfile.module.css';
@@ -12,27 +12,37 @@ import { userLoad } from "../../services/actions/userActions.js";
 
 export function UserProfile() {
 
-   const [name, setName] = React.useState(cookieGet("username"));
-
    const dispatch = useDispatch();
 
    React.useEffect(() => {
-      console.log("useEffect: token", cookieGet("accessToken"));
+      console.log("useEffect");
       dispatch(userLoad(cookieGet("accessToken")));
-   }, [dispatch])
+   }, [])
+
+   const user = useSelector((state) => state.user);
+   if (!user.name) {
+      user.name = "";
+      user.email = "";
+   }
+
+   const [name, setName] = React.useState(user.name);
+   const [email, setEmail] = React.useState(user.email);
+
+   React.useEffect(() => {
+      setName(user.name);
+      setEmail(user.email);
+   }, [user.name])
 
    const [buttonsVisible, setButtonsVisibility] = useState(false);
 
    const onNameChange = e => {
       console.log("name", e.target.value);
       setName(e.target.value);
-      console.log("name", name);
       setButtonsVisibility(true);
    };
 
-   const [email, setEmail] = React.useState(cookieGet("email"));
-
    const onEmailChange = e => {
+      console.log("e.target.value", e.target.value);
       setEmail(e.target.value);
       setButtonsVisibility(true);
    };
@@ -62,8 +72,8 @@ export function UserProfile() {
       <>
          <form onSubmit={handleSubmit} className={`${styles_global.inputs} text text_color_inactive`}>
             <Input value={name} onChange={onNameChange} placeholder="Имя" />
-            <Input value={email} onChange={onEmailChange} placeholder="E-mail" />
-            <Input value={password} onChange={onPasswordChange} placeholder="Пароль" />
+            <EmailInput value={email} type={"email"} onChange={onEmailChange} placeholder="E-mail" />
+            <PasswordInput value={password} onChange={onPasswordChange} placeholder="Пароль" />
             <div className={styles_global.buttons} style={{ display: buttonsVisible ? "flex" : "hidden" }}>
                <Button htmlType="submit"> Сохранить </Button>
                <Button htmlType="reset" onClick={handleReset}> Отмена </Button>

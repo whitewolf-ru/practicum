@@ -6,7 +6,7 @@ import styles from "./IngredientDetails.module.css";
 const IngredientDetails = ({ ingredient }) => {
    return (
       <div className="window-message text text_type_main-default">
-         <img src={ingredient?.image_large} alt="alt" />
+         <img src={ingredient?.image_large} alt="ingredient?.name" />
          <p className="text text_type_main-large">{ingredient?.name}</p>
 
          <center>

@@ -1,3 +1,4 @@
+
 import { Link, NavLink } from 'react-router-dom';
 
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -34,7 +35,9 @@ function AppHeader() {
             </p>
 
             <li className={`${styles.header_element} ${styles.center}`}>
-               <Logo />
+               <Link to={"/"}>
+                  <Logo />
+               </Link>
             </li>
 
             <p className={`${styles.header_element} ${styles.right}`}>

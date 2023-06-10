@@ -24,7 +24,6 @@ import { UserLogout } from "../UserLogout/UserLogout.js";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute.js";
 import { NotFound404 } from './../NotFound404/NotFound404';
 import { LOGIN_SUCCESS } from '../../services/actions/userActions.js';
-//import { ITEM_DELETE } from '../../services/actions/itemCurrent.js';
 
 function App() {
 
@@ -45,12 +44,7 @@ function App() {
 
    const navigate = useNavigate();
 
-   // Функция закрытия окна, которую мы передадим "модальному", так сказать, окну для очистки state.item_current
-   const modalClose = () => {
-      //dispatch({ type: ITEM_DELETE });
-      //modalClose();
-      navigate("/", { replace: true });
-   }
+   const modalClose = () => { navigate("/", { replace: true }) }
 
    return (
       <>

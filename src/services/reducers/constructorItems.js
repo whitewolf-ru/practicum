@@ -1,7 +1,7 @@
 
-import { ITEM_ADD, ITEM_DELETE, ITEMS_SWAP, BUN_DELETE, BUN_ADD } from '../actions/constructorActions.js';
+import { ITEM_ADD, ITEM_DELETE, ITEMS_SWAP, BUN_DELETE, BUN_ADD, CONSTRUCTOR_CLEAR } from '../actions/constructorActions.js';
 
-const initialState = { bun: null, items: []};
+const initialState = { bun: null, items: [] };
 
 const constructorItemsReducer = (state = initialState, action) => {
 
@@ -45,6 +45,12 @@ const constructorItemsReducer = (state = initialState, action) => {
             ...state,
             bun: state.bun,
             items: [...state.items]
+         }
+      }
+
+      case CONSTRUCTOR_CLEAR: {
+         return {
+            initialState
          }
       }
 

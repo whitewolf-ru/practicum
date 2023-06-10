@@ -1,6 +1,9 @@
 
 import { api } from "../../utils/burger-api.js";
 
+import { cookieGet, cookieDelete } from "../../utils/functions.js";
+
+// Роли исполняли:
 export const USER_LOGIN = 'USER_LOGIN';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
@@ -10,6 +13,14 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+
+export const TOKEN_UPDATE_REQUEST = 'TOKEN_UPDATE_REQUEST';
+export const TOKEN_UPDATE_ERROR = 'TOKEN_UPDATE_ERROR';
+export const TOKEN_UPDATE_SUCCESS = 'TOKEN_UPDATE_SUCCESS';
 
 export const PASSWORD_FORGOT_REQUEST = 'PASSWORD_FORGOT_REQUEST';
 export const PASSWORD_FORGOT_ERROR = 'PASSWORD_FORGOT_ERROR';
@@ -37,8 +48,6 @@ export function register(data) {
    return function (dispatch) {
       dispatch({ type: REGISTER_REQUEST })
 
-      console.log("action", data);
-
       api("auth/register",
          {
             method: 'POST',
@@ -50,7 +59,6 @@ export function register(data) {
 
          .then(res => {
             if (res && res.success) {
-               console.log("res", res);
                dispatch({
                   type: REGISTER_SUCCESS,
                   //orderId: res.order.number
@@ -78,8 +86,6 @@ export function login(data) {
    return function (dispatch) {
       dispatch({ type: LOGIN_REQUEST })
 
-      console.log("login action", data);
-
       api("auth/login",
          {
             method: 'POST',
@@ -89,12 +95,10 @@ export function login(data) {
       )
          .then(res => {
             if (res && res.success) {
-               console.log("0k", res);
                document.cookie = `accessToken=${res.accessToken}`;
                document.cookie = `refreshToken=${res.refreshToken}`;
                document.cookie = `username=${res.user.name}`;
                document.cookie = `email=${res.user.email}`;
-               console.log("cookie", document.cookie);
                dispatch({ type: LOGIN_SUCCESS });
             } else {
                dispatch({ type: LOGIN_ERROR });
@@ -103,6 +107,75 @@ export function login(data) {
 
          .catch(err => {
             dispatch({ type: LOGIN_ERROR });
+         })
+
+   }
+}
+
+/*
+╒═╤═══════════════════╤═╕
+│ │ Обновление токена │ │
+╘═╧═══════════════════╧═╛
+*/
+export function tokenUpdate() {
+   return function (dispatch) {
+      dispatch({ type: TOKEN_UPDATE_REQUEST });
+
+      api("auth/token",
+         {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: cookieGet("refreshToken") })
+         }
+      )
+         .then(res => {
+            if (res && res.success) {
+               document.cookie = `accessToken=${res.accessToken}`;
+               dispatch({ type: TOKEN_UPDATE_SUCCESS });
+            } else {
+               dispatch({ type: TOKEN_UPDATE_ERROR });
+            }
+         })
+
+         .catch(err => {
+            dispatch({ type: TOKEN_UPDATE_ERROR });
+         })
+   }
+}
+
+/*
+╒═╤═══════╤═╕
+│ │ Выход │ │
+╘═╧═══════╧═╛
+*/
+
+export function logout() {
+
+   return function (dispatch) {
+      dispatch({ type: LOGOUT_REQUEST })
+      console.log("userActions.js: logout()");
+
+      api("auth/logout",
+         {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: cookieGet("refreshToken") })
+         }
+      )
+         .then(res => {
+            if (res && res.success) {
+               cookieDelete("accessToken");
+               cookieDelete("refreshToken");
+               cookieDelete("username");
+               cookieDelete("email");
+               dispatch({ type: LOGOUT_SUCCESS });
+            } else {
+               dispatch({ type: LOGOUT_ERROR });
+            }
+         })
+
+         .catch(err => {
+            dispatch({ type: LOGOUT_ERROR });
          })
 
    }
@@ -150,8 +223,6 @@ export function passwordReset(data) {
    return function (dispatch) {
       dispatch({ type: PASSWORD_RESET_REQUEST })
 
-      console.log("action", data);
-
       api("password-reset",
          {
             method: 'POST',
@@ -161,7 +232,6 @@ export function passwordReset(data) {
       )
          .then(res => {
             if (res && res.success) {
-               console.log("res", res);
                alert("Пароль, судя по всему, изменён!");
                dispatch({
                   type: PASSWORD_RESET_SUCCESS,
@@ -200,7 +270,6 @@ export function userProfileUpdate(data) {
       )
          .then(res => {
             if (res && res.success) {
-               console.log("res", res);
                alert("Профайл, наверное, изменён!");
                dispatch({
                   type: PASSWORD_RESET_SUCCESS
@@ -228,31 +297,36 @@ export function userLoad(token) {
 
    return function (dispatch) {
       dispatch({ type: USER_LOAD_REQUEST })
-      console.log("userLoad() action", token);
 
       api("auth/user",
          {
-            method: 'PATCH',
+            method: 'GET',
             headers: { 'Content-Type': 'application/json', authorization: token },
          })
          .then(res => {
             if (res && res.success) {
-               console.log("res", res);
+               console.log("Получилось!",res);
                dispatch({
-                  type: USER_LOAD_SUCCESS
+                  type: USER_LOAD_SUCCESS,
+                  name: res.user.name,
+                  email: res.user.email
                })
             } else {
-               console.log("Какая-то шляпа с реквизитами!", res);
+               console.log("Не получается! Попробуйте переустановить Windows", res);
                dispatch({ type: USER_LOAD_ERROR });
             }
          })
 
          .catch(err => {
             console.log("Облом!", err);
-            //dispatch({ type: USER_LOAD_ERROR });
             if (err.message === "jwt expired") {
                console.log("Жетончик протух");
+               dispatch(tokenUpdate(userLoad()));
+            } else {
+               dispatch({ type: USER_LOAD_ERROR });
             }
          })
    }
 }
+
+// И тут Настя поняла, что хочет быть стриптизёршей...
