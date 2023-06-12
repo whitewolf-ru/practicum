@@ -72,7 +72,7 @@ function App() {
             </Route>
 
             <Route path="/ingredient" element={<IngredientWindow />} />
-            <Route path="/orderProcess" element={< ProtectedRoute element={<OrderDetails />} />} />
+            {/*<Route path="/orderProcess" element={< ProtectedRoute element={<OrderDetails />} />} />*/}
             <Route path="/" element={<Main />} />
             <Route path="*" element={<NotFound404 />} />
 

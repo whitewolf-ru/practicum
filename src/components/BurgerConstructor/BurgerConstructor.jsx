@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 import { nanoid } from '@reduxjs/toolkit'
 
@@ -10,6 +10,10 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerConstructor.module.css';
 import ConstructorItem from './../ConstructorItem/ConstructorItem.jsx';
 import TotalPrice from './../TotalPrice/TotalPrice.jsx';
+import OrderDetails from './../OrderDetails/OrderDetails.jsx';
+import useModal from './../../hooks/UseModal.jsx';
+import Modal from './../Modal/Modal.jsx';
+import { orderUpload } from "../../services/actions/order.js";
 import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions.js';
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions.js';
 
@@ -21,7 +25,11 @@ function BurgerConstructor() {
    const ingredients = useSelector(ingredientsGet());
 
    const dispatch = useDispatch();
-   const location = useLocation();
+   //const location = useLocation();
+
+   const { isModalOpen, modalOpen, modalClose } = useModal();
+
+   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
 
    // Удаление ингредиентов
    function itemDelete(uniqueId, itemId) {
@@ -61,6 +69,22 @@ function BurgerConstructor() {
       }
    })
 
+   const navigate = useNavigate();
+
+   const orderId = useSelector(state => state.order.orderId);
+
+   function orderProcess() {
+      if (isLoggedIn) {
+         let data = [];
+         items.map(ingredient => { return data.push(ingredient._id) })
+         dispatch(orderUpload(data));
+         modalOpen();
+         ingredients.map(ingredient => ingredient.counter = 0);
+      } else {
+         navigate("/login", { replace: true });
+      }
+   }
+
    const dropStyle = isHover ? { background: "#eee" } : { background: "#0f0" };
 
    return (
@@ -81,13 +105,19 @@ function BurgerConstructor() {
             <TotalPrice className="mr10" />
             {
                bun && items &&
-               <Link to={"/orderProcess"} state={{ background: location }} className="text BurgerIngredients-li">
-                  <Button htmlType="button" type="primary" size="small">
-                     Оформить заказ
-                  </Button>
-               </Link>
+               <Button htmlType="button" type="primary" size="small" onClick={orderProcess}>
+                  Оформить заказ
+               </Button>
             }
          </p>
+
+         {
+            isModalOpen &&
+            <Modal className="window" header="&nbsp;" onClose={modalClose}>
+               <OrderDetails orderId={orderId} />
+            </Modal>
+         }
+
       </div>
    )
 }

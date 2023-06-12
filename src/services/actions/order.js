@@ -10,6 +10,7 @@ export function orderUpload(data) {
    return function (dispatch) {
 
       dispatch({ type: ORDER_UPDATE_REQUEST })
+      console.log("dispatch",data);
 
       api("orders",
          {

@@ -3,7 +3,7 @@ import { api } from "../../utils/burger-api.js";
 
 import { cookieGet, cookieDelete } from "../../utils/functions.js";
 
-// Роли исполняли:
+// Роли исполняют:
 export const USER_LOGIN = 'USER_LOGIN';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';

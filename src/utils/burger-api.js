@@ -19,7 +19,6 @@ export function api(method, options) {
 
 // to be updated
 // const getIngredients =  () => request("ingredients")
-// Это, конечно, здорово, но непонятно, как делать dispatch и прочую магию при возврате ошибки
 export const api_request = (method, options) => {
   return fetch(API + method, options)
     .then(checkResponse)

@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './ingredient.css';
-import styles from './ingredientPage.module.css';
 import IngredientDetails from './../components/IngredientDetails/IngredientDetails.jsx';
 
 function Ingredient() {
@@ -31,9 +30,7 @@ function Ingredient() {
 
    if (source) {
       return (
-         <Link key={item._id} to={{ pathname: `/ingredient/:${item._id}` }} replace={true} className={styles.link}>
             <IngredientDetails ingredient={item} />
-         </Link >
       )
    }
 

@@ -5,6 +5,7 @@ const useModal = (handleClose) => {
    const [isModalOpen, setIsModalOpen] = useState(false);
  
    const modalOpen = useCallback(() => {
+   console.log("modalOpen()");
        setIsModalOpen(true);
    }, []);
  
