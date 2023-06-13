@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 import { nanoid } from '@reduxjs/toolkit'
 
@@ -8,10 +9,10 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from './BurgerConstructor.module.css';
 import ConstructorItem from './../ConstructorItem/ConstructorItem.jsx';
-import OrderDetails from './../OrderDetails/OrderDetails.jsx';
-import Modal from './../Modal/Modal.jsx';
 import TotalPrice from './../TotalPrice/TotalPrice.jsx';
+import OrderDetails from './../OrderDetails/OrderDetails.jsx';
 import useModal from './../../hooks/UseModal.jsx';
+import Modal from './../Modal/Modal.jsx';
 import { orderUpload } from "../../services/actions/order.js";
 import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions.js';
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions.js';
@@ -22,8 +23,13 @@ function BurgerConstructor() {
    const { items, bun } = useSelector(itemsGet());
    const ingredientsGet = () => state => state.ingredientsItems.ingredients.list;
    const ingredients = useSelector(ingredientsGet());
-   const { isModalOpen, modalOpen, modalClose } = useModal();
+
    const dispatch = useDispatch();
+   //const location = useLocation();
+
+   const { isModalOpen, modalOpen, modalClose } = useModal();
+
+   const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
 
    // Удаление ингредиентов
    function itemDelete(uniqueId, itemId) {
@@ -37,6 +43,9 @@ function BurgerConstructor() {
       if (item.type === "bun" && item._id !== bun?._id && bun) {
          dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: bun._id });
       }
+
+      // А давайте запихнём наноид сюда!
+      item.uuid = nanoid();
 
       item.type === "bun" ? dispatch({ type: BUN_ADD, item: item }) : dispatch({ type: ITEM_ADD, item: item });
 
@@ -60,16 +69,23 @@ function BurgerConstructor() {
       }
    })
 
-   const dropStyle = isHover ? { background: "#eee" } : { background: "#0f0" };
+   const navigate = useNavigate();
 
    const orderId = useSelector(state => state.order.orderId);
 
    function orderProcess() {
-      let data = [];
-      items.map(ingredient => { return data.push(ingredient._id) })
-      dispatch(orderUpload(data));
-      modalOpen();
+      if (isLoggedIn) {
+         let data = [];
+         items.map(ingredient => { return data.push(ingredient._id) })
+         dispatch(orderUpload(data));
+         modalOpen();
+         ingredients.map(ingredient => ingredient.counter = 0);
+      } else {
+         navigate("/login", { replace: true });
+      }
    }
+
+   const dropStyle = isHover ? { background: "#eee" } : { background: "#0f0" };
 
    return (
       <div className={styles.BurgerConstructor}>
@@ -79,18 +95,22 @@ function BurgerConstructor() {
          <ul className={styles.burgerconstructor_scroll_block} ref={dropTarget}>
             {
                items &&
-                  items.map((item, i) => <li key={nanoid()}><ConstructorItem item={item} itemIndex={i} moveable={true} handleClose={itemDelete} style={dropStyle} /></li>)
-}
+               items.map((item, i) => <li key={item.uuid}><ConstructorItem item={item} itemIndex={i} moveable={true} handleClose={itemDelete} style={dropStyle} /></li>)
+            }
          </ul>
 
          {bun && <ConstructorItem item={bun} isLocked={true} type="bottom" />}
 
          <p className={`${styles.constructor_footer} text text_type_digits-medium`}>
             <TotalPrice className="mr10" />
-            <Button htmlType="button" type="primary" size="small" onClick={orderProcess}>
-               Оформить заказ
-            </Button>
+            {
+               bun && items &&
+               <Button htmlType="button" type="primary" size="small" onClick={orderProcess}>
+                  Оформить заказ
+               </Button>
+            }
          </p>
+
          {
             isModalOpen &&
             <Modal className="window" header="&nbsp;" onClose={modalClose}>

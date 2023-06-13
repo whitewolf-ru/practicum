@@ -20,7 +20,7 @@ const Modal = (props) => {
    React.useEffect(() => {
       const handleESCclose = (e) => { keyCheck(e) }
       document.addEventListener("keydown", handleESCclose);
-      return () => document.removeEventListener("keydown", handleESCclose)                                                                                               
+      return () => document.removeEventListener("keydown", handleESCclose)
    }, [])
 
    // Давим клик внутри окна
@@ -28,13 +28,13 @@ const Modal = (props) => {
       e.stopPropagation();
    }
 
-   return ReactDOM.createPortal(    
+   return ReactDOM.createPortal(
       <>
-         <ModalOverlay onClick={onClose}/>
+         <ModalOverlay onClick={onClose} />
          <div className="window-modal" onClick={clickSuppressor}>
             <p className="modal-header text text_type_main-medium">
                {props.header}
-               <CloseIcon onClick={onClose} className="close-icon"/>
+               <CloseIcon onClick={onClose} className="close-icon" />
             </p>
             <div className="window-message text text_type_main-default">
                {props.children}
@@ -42,7 +42,7 @@ const Modal = (props) => {
          </div>
       </>
       ,
-    MODAL_ROOT)
+      MODAL_ROOT)
 
 }
 

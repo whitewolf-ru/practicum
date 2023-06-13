@@ -1,16 +1,15 @@
 
 import React from 'react';
-import Ingredient from './../Ingredient/Ingredient.jsx';
+import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
+import Ingredient from './../Ingredient/Ingredient.jsx';
 import Tabs from './../Tabs/Tabs.jsx';
-import { useSelector, useDispatch } from 'react-redux';
 import './BurgerIngredients.css';
-import IngredientDetails from './../IngredientDetails/IngredientDetails.jsx';
-import Modal from './../Modal/Modal.jsx';
-import useModal from './../../hooks/UseModal.jsx';
-import { ITEM_UPDATE, ITEM_DELETE } from '../../services/actions/itemCurrent.js';
 
 function BurgerIngredients() {
+
+   const location = useLocation();
 
    const ingredientsGet = () => state => state.ingredientsItems.ingredients.list;
    const ingredients = useSelector(ingredientsGet());
@@ -19,25 +18,7 @@ function BurgerIngredients() {
    const mains = ingredients.filter((item) => item.type === 'main');
    const sauces = ingredients.filter((item) => item.type === 'sauce');
 
-   const [ingredientSelected, selectIngredient] = React.useState(null);
-   const { isModalOpen, modalOpen, modalClose } = useModal();
-
-   const dispatch = useDispatch();
-
-   // Открытие окна с ингредиентом
-   function setModState(ingredient) {
-      modalOpen();
-      selectIngredient(ingredient);
-      dispatch({ type: ITEM_UPDATE, item: ingredient });
-   }
-
    const [currentTab, setCurrentTab] = React.useState("buns");
-
-   // Функция закрытия окна, которую мы передадим "модальному", так сказать, окну для очистки state.item_current
-   const modalCloseHandler = () => {
-      dispatch({ type: ITEM_DELETE });
-      modalClose();
-   }
 
    const handleScroll = (e) => {
       const parent = document.getElementById("ingredientsContainer").getBoundingClientRect();
@@ -67,12 +48,10 @@ function BurgerIngredients() {
 
                <span className="BurgerIngredients-group-block">
                   {
-                     buns.map(ingredient =>
-                        <li className="BurgerIngredients-li"
-                           onClick={(e) => { setModState(ingredient) }}
-                           key={ingredient._id}>
-                           <Ingredient ingredient={ingredient} />
-                        </li>
+                     buns.map(ingredient => 
+                        <Link to={`/ingredient/:${ingredient._id}`} state={{ background: location }} key={ingredient._id} className="text BurgerIngredients-li">
+                           <Ingredient ingredient={ingredient} className="BurgerIngredients-li" />
+                        </Link>
                      )
                   }
                </span>
@@ -82,11 +61,9 @@ function BurgerIngredients() {
                <span className="BurgerIngredients-group-block">
                   {
                      sauces.map(ingredient =>
-                        <li className="BurgerIngredients-li"
-                           onClick={(e) => { setModState(ingredient) }}
-                           key={ingredient._id}>
-                           <Ingredient ingredient={ingredient} />
-                        </li>
+                        <Link to={`/ingredient/:${ingredient._id}`} state={{ background: location }} key={ingredient._id} className="text BurgerIngredients-li">
+                           <Ingredient ingredient={ingredient} className="BurgerIngredients-li" />
+                        </Link>
                      )
                   }
                </span>
@@ -96,23 +73,15 @@ function BurgerIngredients() {
                <span className="BurgerIngredients-group-block">
                   {
                      mains.map(ingredient =>
-                        <li className="BurgerIngredients-li"
-                           onClick={(e) => { setModState(ingredient) }}
-                           key={ingredient._id}>
-                           <Ingredient ingredient={ingredient} />
-                        </li>
+                        <Link to={`/ingredient/:${ingredient._id}`} state={{ background: location }} key={ingredient._id} className="text BurgerIngredients-li">
+                           <Ingredient ingredient={ingredient} className="BurgerIngredients-li" />
+                        </Link>
                      )
                   }
                </span>
             </ul>
 
          </div>
-         {
-            isModalOpen === true &&
-            <Modal className="window" header="детали ингредиента" onClose={() => modalCloseHandler()}>
-               <IngredientDetails ingredient={ingredientSelected} />
-            </Modal>
-         }
       </div>
    )
 }

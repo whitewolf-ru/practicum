@@ -23,7 +23,7 @@ function Ingredient({ ingredient }) {
    return (
       <div className={`${styles.ingredient_container} text text_type_main-small`} ref={ref}>
          {counter()}
-         <img src={ingredient.image} style={{ width: "200px" }} alt="Ингредиент" />
+         <img src={ingredient.image} style={{ width: "200px" }} alt={ingredient.name} />
          <div className="text text_type_main-medium">{ingredient.price} <CurrencyIcon type="primary" /></div>
          <div className="text text_type_main-small"> {ingredient.name} </div>
       </div>

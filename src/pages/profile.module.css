@@ -1,0 +1,73 @@
+.page_container {
+   display: flex;
+   gap: 60px;
+   margin-top: 50px;
+}
+
+.tabs {
+   display: flex;
+   flex-direction: column;
+   width: 40%;
+}
+
+.tabs_label {
+   margin-top: 80px;
+}
+
+.profileButton {
+   border: 1px dashed #4C4CFF;
+   margin-top: -1px;
+   padding: 10px;
+   text-decoration: none;
+}
+
+.input_container_main {
+   display: flex;
+   flex-direction: column;
+   gap: 24px;
+   width: 100%;
+}
+
+.input_container {
+   border: 1px dashed #4C4CFF;
+   background: #2F2F37;
+   border-radius: 25px;
+   display: flex;
+   gap: 2px;
+   text-align: left;
+   padding: 5px 20px;
+}
+
+.input_label {
+   display: flex;
+   flex-direction: column;
+   width: 600px;
+}
+
+.input {
+   color: #aaa;
+   padding: 0px 1px;
+   font-size: 12pt;
+   background: #2F2F37;
+   border: 0;
+   outline: none;
+   width: calc(100% - 50px);
+}
+
+.input_icon {
+   width: 24px;
+   align-self: center;
+}
+
+.activeLink {
+   color: #fff;
+   background: #007;
+   text-decoration: none;
+   border: 1px dashed #4C4CFF;
+   margin-top: -1px;
+   padding: 10px;
+}
+
+.empty {
+   width: 40%;
+}

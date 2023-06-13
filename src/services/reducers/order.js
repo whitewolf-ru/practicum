@@ -1,14 +1,13 @@
 
 import { ORDER_UPDATE_REQUEST, ORDER_UPDATE_SUCCESS, ORDER_UPDATE_ERROR } from '../actions/order.js';
 
-const initialState = 0;
+const initialState = { id: 0 };
 
 const orderReducer = (state = initialState, action) => {
    switch (action.type) {
 
       case ORDER_UPDATE_REQUEST: { 
          return 0;
-         break;
       }
 
       case ORDER_UPDATE_SUCCESS: {
