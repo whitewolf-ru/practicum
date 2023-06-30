@@ -27,7 +27,7 @@ function BurgerIngredients() {
 
    const [currentTab, setCurrentTab] = React.useState("buns");
 
-   const handleScroll = (e: any) => {
+   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
       const parent = document.getElementById("ingredientsContainer")!.getBoundingClientRect();
 
       let nearestElement = 1e9, activeTab: string = "buns";

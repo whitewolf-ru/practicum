@@ -19,12 +19,12 @@ const Modal: FC<TProps> = ({ header, onClose, children }) => {
    const MODAL_ROOT = document.getElementById("react-modals");
    //const onClose = onClose;
 
-   const keyCheck = (e: React.KeyboardEvent<HTMLInputElement>) => {
+   const keyCheck = (e: KeyboardEvent) => {
       if (e.keyCode === KEY_ESC) { onClose() }
    }
 
    React.useEffect(() => {
-      const handleESCclose = (e: any) => { keyCheck(e) }
+      const handleESCclose = (e: KeyboardEvent) => { keyCheck(e) }
       document.addEventListener("keydown", handleESCclose);
       return () => document.removeEventListener("keydown", handleESCclose)
    }, [])

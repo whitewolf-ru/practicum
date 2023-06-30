@@ -1,7 +1,7 @@
 
 import { API } from "../services/settings";
 
-export const checkResponse = (response: { ok: any; json: () => any; status: any; }) => {
+export const checkResponse = (response: Response) => {
   if (response.ok) return response.json();
   return Promise.reject(`Ошибка ${response.status}`);
 };

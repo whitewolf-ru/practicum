@@ -70,7 +70,6 @@ function ConstructorItem(
          <div className={styles.mover}>
             {moveable ? <DragIcon type="primary" /> : <span> &nbsp; </span>}
          </div>
-
          <span className="text text_type_main-small ml-50">
             <ConstructorElement
                isLocked={isLocked}
@@ -78,8 +77,6 @@ function ConstructorItem(
                text={name}
                price={item.price}
                thumbnail={item.image}
-               item_id={item._id}
-               unique_id={unique_id}
                handleClose={() => handleClose(unique_id, item._id)}
             />
          </span>
