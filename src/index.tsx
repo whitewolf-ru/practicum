@@ -4,9 +4,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import store from './services/store.js';
+import store from './services/store';
 import './index.css';
-import App from './components/app/App.jsx';
+import App from './components/app/App';
 
 const root = ReactDOM.createRoot(
    document.getElementById('root') as HTMLElement
