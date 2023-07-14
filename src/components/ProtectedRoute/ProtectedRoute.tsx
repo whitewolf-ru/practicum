@@ -1,6 +1,7 @@
 
 import React, { FC, ReactElement } from "react";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks/index";
 import { useLocation, Navigate } from 'react-router-dom';
 
 type TprotectedRouteElement = {

@@ -7,6 +7,7 @@ import styles_global from "./../../styles.module.css";
 import styles from './AppHeader.module.css';
 
 function AppHeader() {
+
    return (
       <header className={styles_global.page_container}>
 
@@ -24,11 +25,11 @@ function AppHeader() {
                </NavLink>
 
                <li>
-                  <ListIcon type="primary"/>
+                  <ListIcon type="primary" />
                </li>
 
                <NavLink
-                  to={{ pathname: `/list` }}
+                  to={{ pathname: `/feed` }}
                   className={({ isActive }) => isActive ? `${styles.link} ${styles.link_active}` : `${styles.link} text_color_inactive`}>
                   Лента заказов
                </NavLink>

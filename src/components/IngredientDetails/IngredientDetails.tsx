@@ -1,6 +1,7 @@
 
 import React from "react";
-import IngredientsPropsShape from '../IngredientsPropsShape/IngredientsPropsShape';
+
+//import IngredientsPropsShape from '../IngredientsPropsShape/IngredientsPropsShape';
 import styles from "./IngredientDetails.module.css";
 import { Tingredient } from '../../utils/types'
 
@@ -33,8 +34,8 @@ const IngredientDetails = ({ingredient}: {ingredient: Tingredient}) => {
    )
 }
 
-IngredientDetails.propTypes = {
-   ingredient: IngredientsPropsShape
-};
+//IngredientDetails.propTypes = {
+//   ingredient: IngredientsPropsShape
+//};
 
 export default IngredientDetails;

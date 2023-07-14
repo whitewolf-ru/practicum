@@ -1,6 +1,7 @@
 
 import React from "react";
-import { useDispatch } from 'react-redux';
+//import { useDispatch } from 'react-redux';
+import { useDispatch } from "../../hooks/index";
 import { useDrag, useDrop } from 'react-dnd';
 
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'

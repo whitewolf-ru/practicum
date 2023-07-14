@@ -1,0 +1,48 @@
+.order {
+   width: 100%;
+}
+
+.ingredients {
+   max-height: 300px;
+   overflow-y: auto;
+}
+
+.ingredients::-webkit-scrollbar {
+   width: 3px;
+}
+
+.ingredients::-webkit-scrollbar-track {
+   width: 3px;
+   background-color: #333;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+   width: 5px;
+   background-color: #88f;
+}
+
+.tr {
+   vertical-align: middle;
+}
+
+.name {
+   text-align: left;
+   margin: 10px 0px;
+}
+
+.status {
+   text-align: left;
+   margin: 10px 0px;
+   margin-bottom: 20px;
+}
+
+.content {
+   text-align: left;
+   margin: 10px 0px;
+}
+
+.footer {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}

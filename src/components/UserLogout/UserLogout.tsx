@@ -1,4 +1,8 @@
-import { useDispatch } from 'react-redux';
+
+import React from "react";
+
+//import { useDispatch } from 'react-redux';
+import { useDispatch } from "../../hooks/index";
 import { logout } from "../../services/actions/userActions";
 
 export function UserLogout() {

@@ -1,0 +1,27 @@
+.block {
+   display: flex;
+   max-height: calc(100vh - 250px);
+   overflow-y: auto;
+   text-align: left;
+   flex-wrap: wrap;
+   width: 100%;
+   padding: 5px;
+}
+
+.block::-webkit-scrollbar {
+   width: 3px;
+}
+
+.block::-webkit-scrollbar-track {
+   width: 3px;
+   background-color: #333;
+}
+
+.block::-webkit-scrollbar-thumb {
+   width: 5px;
+   background-color: #88f;
+}
+
+.list {
+   width: 900px;
+}

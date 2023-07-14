@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
+import { useSelector } from "../../hooks/index";
 
 import Ingredient from '../Ingredient/Ingredient';
 import Tabs from '../Tabs/Tabs';

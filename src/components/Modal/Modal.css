@@ -10,6 +10,7 @@
    background: #1c1c21;
    color: #fff;
    border-radius: 30px;
+   z-index: 101;
 }
 
 .modal-header {

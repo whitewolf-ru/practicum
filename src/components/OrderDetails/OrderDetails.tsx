@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "../../hooks/index";
 
 import { orderUpload } from "../../services/actions/order";
 import styles from './OrderDetails.module.css';

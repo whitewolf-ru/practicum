@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+//import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "../../hooks/index";
 import { useNavigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 
@@ -13,7 +14,7 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import useModal from '../../hooks/UseModal';
 import Modal from '../Modal/Modal';
 import { orderUpload } from "../../services/actions/order";
-import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions';
+import { TconstructorActions, ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions';
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions';
 import { Tingredient } from '../../utils/types';
 import { TconstructorElement } from '../../utils/types';

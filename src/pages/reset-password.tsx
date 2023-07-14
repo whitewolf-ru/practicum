@@ -1,7 +1,8 @@
 
 import React, { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/index";
 
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 

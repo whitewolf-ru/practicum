@@ -1,6 +1,7 @@
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+//import { useSelector } from 'react-redux';
+import { useSelector } from "../../hooks/index";
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './TotalPrice.module.css';

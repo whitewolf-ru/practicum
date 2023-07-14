@@ -1,9 +1,10 @@
 
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
+import { useSelector } from "../hooks/index";
 
-import './ingredient.css';
+import styles from "./ingredient.module.css";
 import IngredientDetails from './../components/IngredientDetails/IngredientDetails';
 import { Tingredient } from '../utils/types';
 
@@ -21,7 +22,7 @@ function Ingredient() {
       :
       {
          _id: "0",
-         name: "По-видимому, это проблема должна уйти в продакшне",
+         name: "dummy object",
          type: "some secret type",
          price: 1,
          image: "some porn pic",

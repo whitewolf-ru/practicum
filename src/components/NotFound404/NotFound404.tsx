@@ -1,3 +1,6 @@
+
+import React, { FC, PropsWithChildren } from "react";
+
 import styles from './NotFound404.module.css';
 
 export const NotFound404 = () => (

@@ -17,6 +17,7 @@ type TProps = PropsWithChildren<{
 const Modal: FC<TProps> = ({ header, onClose, children }) => {
 
    const MODAL_ROOT = document.getElementById("react-modals");
+   console.log("onClose",onClose);
    //const onClose = onClose;
 
    const keyCheck = (e: KeyboardEvent) => {
