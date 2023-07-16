@@ -32,44 +32,39 @@ export type TorderUpdateActions =
    | IorderUpdateSuccessAction
    | IconstructorClearAction;
 
-type AppDispatch = Dispatch<TorderUpdateActions>; 
+type AppDispatch = Dispatch<TorderUpdateActions>;
 
-export function orderUpload( data : string[] ) {
+export function orderUpload(data: string[]) {
 
-   return function (dispatch:AppDispatch) {
+   return function (dispatch: AppDispatch) {
 
       dispatch({ type: ORDER_UPDATE_REQUEST })
 
       api("orders",
          {
-            method: 'POST',
+            method: "POST",
             headers: {
                "Content-Type": 'application/json',
-               Accept: "application/json",
-               Authorization: cookieGet("accessToken")
+               "Accept": "application/json",
+               "Authorization": cookieGet("accessToken")
             },
             body: JSON.stringify({ "ingredients": data })
          }
       )
-
          .then(res => {
             if (res && res.success) {
-
                dispatch({
                   type: ORDER_UPDATE_SUCCESS,
                   orderId: res.order.number
                })
-
                dispatch({
                   type: CONSTRUCTOR_CLEAR,
                   orderId: res.order.number
                })
-
             } else {
                dispatch({ type: ORDER_UPDATE_ERROR });
             }
          })
-
          .catch(err => {
             dispatch({ type: ORDER_UPDATE_ERROR });
          })

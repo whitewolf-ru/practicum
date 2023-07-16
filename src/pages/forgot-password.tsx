@@ -1,7 +1,6 @@
 
 import React, { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-//import { useDispatch } from "react-redux";
 import { useDispatch } from "../hooks/index";
 
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -18,7 +17,7 @@ function ForgotPassword() {
 
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch(passwordForgot({ email: email }) as any);
+      dispatch(passwordForgot({ email: email }));
    }
 
    return (

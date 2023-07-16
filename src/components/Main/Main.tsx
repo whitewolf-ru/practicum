@@ -11,9 +11,7 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 
 export default function Main() {
 
-   const { items, loadRequest, loadFailed } = useSelector((state: any) => state.ingredientsItems);
-   //console.log("MAIN items loadRequest=%s, loadFailed=%s", loadRequest, loadFailed, items);
-   //const list = ingredients?.items ? ingredients.items : [];
+   const { items, loadRequest, loadFailed } = useSelector(store => store.ingredientsItems);
 
    return (
       <>
@@ -21,13 +19,15 @@ export default function Main() {
          <main className={styles_global.page_container} >
             {loadRequest && <h1>Загрузка...</h1>}
             {loadFailed && "Произошла чудовищная ошибка!"}
-            {!loadRequest && !loadFailed && items.length &&
+            {
+               !loadRequest && !loadFailed && items &&
                <DndProvider backend={HTML5Backend}>
                   <BurgerIngredients />
                   <BurgerConstructor />
                </DndProvider>
             }
-            {!loadRequest && !loadFailed && !items.length &&
+            {
+               !loadRequest && !loadFailed && !items &&
                "Загрузилось, но как-то странно"
             }
          </main>

@@ -152,7 +152,7 @@ export interface IprofileUpdateSuccessAction {
 }
 
 export type TuserActions =
-   IuserLoadRequestAction | IuserLoadErrorAction | IuserLoadSuccessAction | IregisterErrorAction | IregisterSuccessAction | IloginRequestAction | IloginErrorAction | IloginSuccessAction
+   IuserLoadRequestAction | IuserLoadErrorAction | IuserLoadSuccessAction | IregisterRequestAction | IregisterErrorAction | IregisterSuccessAction | IloginRequestAction | IloginErrorAction | IloginSuccessAction
    | IlogoutRequestAction | IlogoutErrorAction | IlogoutSuccessAction | ItokenUpdateRequestAction | ItokenUpdateErrorAction | ItokenUpdateSuccessAction | IpasswordForgotRequestAction | IpasswordForgotErrorAction
    | IpasswordForgotSuccessAction | IpasswordResetRequestAction | IpasswordResetErrorAction | IpasswordResetSuccessAction | IprofileUpdateRequestAction | IprofileUpdateErrorAction | IprofileUpdateSuccessAction
 
@@ -167,30 +167,26 @@ type AppDispatch = Dispatch<TuserActions>;
 export function register(data: { email: string; password: string; name: string }) {
 
    return function (dispatch: AppDispatch) {
-      dispatch({ type: REGISTER_REQUEST } as any);
+      dispatch({ type: REGISTER_REQUEST } as TuserActions);
 
       api("auth/register",
          {
-            method: 'POST',
+            method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: data.email, password: data.password, name: data.name })
          }
-
       )
-
          .then(res => {
             if (res && res.success) {
                dispatch({
                   type: REGISTER_SUCCESS,
-                  //orderId: res.order.number
-               } as any)
+               })
             } else {
-               dispatch({ type: REGISTER_ERROR } as any);
+               dispatch({ type: REGISTER_ERROR } as TuserActions);
             }
          })
-
          .catch(err => {
-            dispatch({ type: REGISTER_ERROR } as any);
+            dispatch({ type: REGISTER_ERROR } as TuserActions);
          })
 
    }
@@ -202,7 +198,7 @@ export function register(data: { email: string; password: string; name: string }
 ╘═╧══════╧═╛
 */
 
-export function login(data: any) {
+export function login(data: { email: string; password: string }) {
 
    return function (dispatch: AppDispatch) {
       dispatch({ type: LOGIN_REQUEST })
@@ -220,14 +216,14 @@ export function login(data: any) {
                document.cookie = `refreshToken=${res.refreshToken}`;
                document.cookie = `username=${res.user.name}`;
                document.cookie = `email=${res.user.email}`;
-               dispatch({ type: LOGIN_SUCCESS } as any);
+               dispatch({ type: LOGIN_SUCCESS } as TuserActions);
             } else {
-               dispatch({ type: LOGIN_ERROR } as any);
+               dispatch({ type: LOGIN_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
-            dispatch({ type: LOGIN_ERROR } as any);
+            dispatch({ type: LOGIN_ERROR } as TuserActions);
          })
 
    }
@@ -252,14 +248,14 @@ export function tokenUpdate() {
          .then(res => {
             if (res && res.success) {
                document.cookie = `accessToken=${res.accessToken}`;
-               dispatch({ type: TOKEN_UPDATE_SUCCESS } as any);
+               dispatch({ type: TOKEN_UPDATE_SUCCESS } as TuserActions);
             } else {
-               dispatch({ type: TOKEN_UPDATE_ERROR } as any);
+               dispatch({ type: TOKEN_UPDATE_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
-            dispatch({ type: TOKEN_UPDATE_ERROR } as any);
+            dispatch({ type: TOKEN_UPDATE_ERROR } as TuserActions);
          })
    }
 }
@@ -289,14 +285,14 @@ export function logout() {
                cookieDelete("refreshToken");
                cookieDelete("username");
                cookieDelete("email");
-               dispatch({ type: LOGOUT_SUCCESS } as any);
+               dispatch({ type: LOGOUT_SUCCESS } as TuserActions);
             } else {
-               dispatch({ type: LOGOUT_ERROR } as any);
+               dispatch({ type: LOGOUT_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
-            dispatch({ type: LOGOUT_ERROR } as any);
+            dispatch({ type: LOGOUT_ERROR } as TuserActions);
          })
 
    }
@@ -307,7 +303,7 @@ export function logout() {
 │ │ Запрос на сброс пароля  │ │
 ╘═╧═════════════════════════╧═╛
 */
-export function passwordForgot(data: any) {
+export function passwordForgot(data: { email: string}) {
 
    return function (dispatch: AppDispatch) {
       dispatch({ type: PASSWORD_FORGOT_REQUEST })
@@ -321,14 +317,14 @@ export function passwordForgot(data: any) {
       )
          .then(res => {
             if (res && res.success) {
-               dispatch({ type: PASSWORD_FORGOT_SUCCESS } as any);
+               dispatch({ type: PASSWORD_FORGOT_SUCCESS } as TuserActions);
             } else {
-               dispatch({ type: PASSWORD_FORGOT_ERROR } as any);
+               dispatch({ type: PASSWORD_FORGOT_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
-            dispatch({ type: PASSWORD_FORGOT_ERROR } as any);
+            dispatch({ type: PASSWORD_FORGOT_ERROR } as TuserActions);
          })
 
    }
@@ -339,7 +335,7 @@ export function passwordForgot(data: any) {
 │ │ Сброс пароля │ │
 ╘═╧══════════════╧═╛
 */
-export function passwordReset(data: any) {
+export function passwordReset(data: { password: string, token: string }) {
 
    return function (dispatch: AppDispatch) {
       dispatch({ type: PASSWORD_RESET_REQUEST })
@@ -357,16 +353,16 @@ export function passwordReset(data: any) {
                dispatch({
                   type: PASSWORD_RESET_SUCCESS,
                   //orderId: res.order.number
-               } as any)
+               } as TuserActions)
             } else {
                alert("Шёл трамвай девятый номер");
-               dispatch({ type: PASSWORD_RESET_ERROR } as any);
+               dispatch({ type: PASSWORD_RESET_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
             alert("На площадке кто-то помер");
-            dispatch({ type: PASSWORD_RESET_ERROR } as any);
+            dispatch({ type: PASSWORD_RESET_ERROR } as TuserActions);
          })
 
    }
@@ -377,7 +373,7 @@ export function passwordReset(data: any) {
 │ │ Обновление профайла │ │
 ╘═╧═════════════════════╧═╛
 */
-export function userProfileUpdate(data: any) {
+export function userProfileUpdate(data: { name: string, email: string, password: string, accessToken?: string }) {
 
    return function (dispatch: AppDispatch) {
       dispatch({ type: PROFILE_UPDATE_REQUEST })
@@ -394,16 +390,16 @@ export function userProfileUpdate(data: any) {
                alert("Профайл, наверное, изменён!");
                dispatch({
                   type: PASSWORD_RESET_SUCCESS
-               } as any)
+               })
             } else {
                alert("Какая-то шляпа с реквизитами!");
-               dispatch({ type: PASSWORD_RESET_ERROR } as any);
+               dispatch({ type: PASSWORD_RESET_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
             alert("Вообще ничего не вышло!");
-            dispatch({ type: PASSWORD_RESET_ERROR } as any);
+            dispatch({ type: PASSWORD_RESET_ERROR } as TuserActions);
          })
 
    }
@@ -414,7 +410,7 @@ export function userProfileUpdate(data: any) {
 │ │ Загрузка данных о пользователе │ │
 ╘═╧════════════════════════════════╧═╛
 */
-export function userLoad(token: any) {
+export function userLoad(token?: string) {
 
    return function (dispatch: AppDispatch) {
       dispatch({ type: USER_LOAD_REQUEST })
@@ -431,21 +427,21 @@ export function userLoad(token: any) {
                   type: USER_LOAD_SUCCESS,
                   name: res.user.name,
                   email: res.user.email
-               } as any)
+               })
             } else {
                console.log("Не получается! Попробуйте переустановить Windows", res);
-               dispatch({ type: USER_LOAD_ERROR } as any);
+               dispatch({ type: USER_LOAD_ERROR } as TuserActions);
             }
          })
 
          .catch(err => {
             console.log("Облом!", err);
             if (err === "Ошибка 403") {
-            //if (err.message === "jwt expired") {
+               // if (err.message === "jwt expired") {
                console.log("Жетончик протух");
                dispatch(tokenUpdate() as any);
             } else {
-               dispatch({ type: USER_LOAD_ERROR } as any);
+               dispatch({ type: USER_LOAD_ERROR } as TuserActions);
             }
          })
    }

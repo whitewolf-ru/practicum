@@ -9,13 +9,24 @@ import { Tingredient } from '../../utils/types'
 
 function TotalPrice() {
 
-   const itemsGet = () => (state: any) => state.constructorItems;
-   const { items, bun}  = useSelector(itemsGet());
+   //function fireUser({ firstName, age, isNice }: {
+   //   firstName: string;
+   //   age: number;
+   //   isNice: boolean;
+   //}) {
+   //   // ...
+   //}
+
+   const { items, bun }:
+      {
+         items: Tingredient[];
+         bun: Tingredient
+      } = useSelector((state) => state.constructorItems);
 
    const sum: number = React.useMemo(
       function () {
          const bunPrice = bun && bun !== null ? bun.price * 2 : 0;
-         const itemsPrice = items?.length > 0 ?
+         const itemsPrice = items && items?.length > 0 ?
             items.reduce(
                function (currentSum: number, element: Tingredient) {
                   return currentSum + element.price * (element.type === "bun" ? 2 : 1);
@@ -24,7 +35,7 @@ function TotalPrice() {
             0
          const sum = bunPrice + itemsPrice;
          return sum;
-      },[]
+      }, []
    );
 
    return (

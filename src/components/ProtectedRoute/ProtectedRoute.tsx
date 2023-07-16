@@ -10,7 +10,7 @@ type TprotectedRouteElement = {
 }
 
 export const ProtectedRoute: FC<TprotectedRouteElement> = ({ element, anonymous = false }) => {
-  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+  const { isLoggedIn } = useSelector(state => state.user);
 
   const location = useLocation();
   const from = location.state?.from || '/';

@@ -1,26 +1,22 @@
 // Не используется в версии с redux
 import type { Middleware, MiddlewareAPI } from 'redux';
 
-import { AppDispatch, AppThunk, RootState, TfeedMessageIncoming } from "../utils/types";
+import { AppDispatch, RootState, TfeedMessageIncoming } from "../utils/types";
 import { TwsActions, TwsStoreActions } from "../services/actions/socketActions";
-import { getCurrentTimestamp } from "../utils/functions";
+//import { getCurrentTimestamp } from "../utils/functions";
 import { cookieGet } from "../utils/functions";
-
-// wss://norma.nomoreparties.space/orders/all
-// wss://norma.nomoreparties.space/orders
 
 export const socketInterface = (wsUrl: string, wsActions: TwsStoreActions): Middleware => {
    return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
       let socket: WebSocket | null = null;
-      console.log("socketInterface");
+      //console.log("socketInterface");
 
       return next => (action: TwsActions) => {
-         console.log("%cСобытие socketInterface", "color: #00f");
+         //console.log("%cСобытие socketInterface", "color: #00f");
          const { dispatch, getState } = store;
          const { type } = action;
-         const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+         const { wsInit, wsClose, wsSendMessage, onClose, onMessage } = wsActions;
          const token = cookieGet("accessToken");
-         // console.log("token",token);
 
          // Доступно только авторизованным пользователям
          if (type === wsInit) {
@@ -34,6 +30,8 @@ export const socketInterface = (wsUrl: string, wsActions: TwsStoreActions): Midd
          if (socket) {
             //console.log("Сокет существует");
 
+            if (type === wsClose) socket.close(1000, "Так вышло")
+
             socket.onopen = event => {
                console.log("onopen(): calling dispatch(onOpen)");
                //dispatch({ type: onOpen });
@@ -41,22 +39,22 @@ export const socketInterface = (wsUrl: string, wsActions: TwsStoreActions): Midd
 
             socket.onerror = event => {
                console.log("onerror(): calling dispatch(onError)");
-               //dispatch({ type: onError, payload: event });
+               // dispatch({ type: onError, payload: event });
             };
 
             socket.onmessage = event => {
-               //console.log("onmessage()", event);
+               // console.log("onmessage()", event);
                const { data } = event;
-               //console.log("data", data);
+               // console.log("data", data);
                const parsedData: TfeedMessageIncoming = JSON.parse(data);
-               console.log("parsedData", parsedData);
+               // console.log("parsedData", parsedData);
 
                if (event.data === 'ping') {
-                  console.log("ping");
+                  // console.log("ping");
                   if (socket) socket.send('pong');
                }
 
-               //const { success, ...restParsedData } = parsedData;
+               // const { success, ...restParsedData } = parsedData;
                dispatch({ type: onMessage, data: { ...parsedData } });
             };
 

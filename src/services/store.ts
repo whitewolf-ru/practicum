@@ -5,6 +5,7 @@ import { socketInterface } from '../interfaces/sockets';
 import { ws_link } from '../services/settings';
 
 import {
+  WS_CONNECTION_CLOSE,
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_START,
@@ -17,6 +18,7 @@ import { TwsStoreActions } from "../services/actions/socketActions";
 
 const wsActions: TwsStoreActions = {
   wsInit: WS_CONNECTION_START,
+  wsClose: WS_CONNECTION_CLOSE,
   wsSendMessage: WS_SEND_MESSAGE,
   onOpen: WS_CONNECTION_SUCCESS,
   onClose: WS_CONNECTION_CLOSED,

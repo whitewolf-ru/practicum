@@ -14,7 +14,7 @@ function PriceTotal({ price }: { price: number }) {
                </span>
             </div>
             <div className={styles.name}>
-               {price}<CurrencyIcon />
+               {price}<CurrencyIcon type="primary"/>
             </div>
          </div>
       </>

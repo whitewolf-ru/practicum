@@ -4,12 +4,13 @@ import { useParams } from 'react-router-dom';
 
 import { FormattedDate, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { useSelector, useDispatch } from "../../hooks/index";
+import { useSelector } from "../../hooks/index";
 import { TfeedOrder, Tingredient } from '../../utils/types';
 import styles from './OrderShow.module.css';
 
 function OrderShow() {
    const orderId = useParams().id!.substring(1);
+   // const { items }: { items: TfeedOrder[] } = useSelector(state => state.socket);
    const orders = useSelector((state: any) => state.socket.items).filter((item: TfeedOrder) => { return item.status === "done" });
    const ingredients = useSelector((state: any) => state.ingredientsItems.items);
 
@@ -27,7 +28,7 @@ function OrderShow() {
       }
 
    const status = order?.status === "done" ? "Выполнен" : "В работе";
-   const data: { counter: number, item: Tingredient }[] = new Array();
+   const data: { counter: number, item: Tingredient }[] = [];
 
    if (order?.ingredients)
       for (let i in order.ingredients) {
@@ -45,7 +46,7 @@ function OrderShow() {
          priceTotal += item.item.price * item.counter;
          content.push(
             <tr key={item.item._id} className={styles.tr}>
-               <td> <img src={item.item.image_mobile} /> </td>
+               <td> <img src={item.item.image_mobile} alt="{item.item.name}" /> </td>
                <td align="left"> {item.item.name} </td>
                <td align="right" className={styles.tr}> {item.counter} x {item.item.price * item.counter} </td>
                <td> <CurrencyIcon type="primary" /> </td>

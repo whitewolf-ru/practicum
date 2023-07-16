@@ -26,7 +26,7 @@ const Register = () => {
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       console.log('name=%s, email=%s, password=%s', name, email, password);
-      dispatch(register({ name: name, email: email, password: password }) as any);
+      dispatch(register({ name: name, email: email, password: password }));
    }
 
    return (

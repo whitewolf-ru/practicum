@@ -1,6 +1,5 @@
 
 import React from 'react';
-//import { useSelector, useDispatch } from 'react-redux';
 import { useSelector, useDispatch } from "../../hooks/index";
 import { useNavigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
@@ -14,27 +13,23 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import useModal from '../../hooks/UseModal';
 import Modal from '../Modal/Modal';
 import { orderUpload } from "../../services/actions/order";
-import { TconstructorActions, ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions';
+import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/constructorActions';
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions';
 import { Tingredient } from '../../utils/types';
 import { TconstructorElement } from '../../utils/types';
 
 function BurgerConstructor() {
+   const { items, bun }: { items: TconstructorElement[], bun: TconstructorElement} = useSelector(state => state.constructorItems);
+   //const ingredientsGet = () => (store => store.ingredientsItems.items;
 
-   const itemsGet = () => (state: any) => state.constructorItems;
-   const { items, bun } = useSelector(itemsGet());
-   const ingredientsGet = () => (state: any) => state.ingredientsItems.items;
-   const ingredients = useSelector(ingredientsGet());
-
+   const ingredients = useSelector((state: any) => state.ingredientsItems.items);
    const dispatch: any = useDispatch();
-
    const { isModalOpen, modalOpen, modalClose } = useModal();
-
-   const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+   const isLoggedIn = useSelector(store => store.user.isLoggedIn);
 
    // Удаление ингредиентов
    function itemDelete(uniqueId: string, itemId: string) {
-      console.log("itemDelete, itemId=%s, uniqueId=%s",itemId,uniqueId);
+      console.log("itemDelete, itemId=%s, uniqueId=%s", itemId, uniqueId);
       dispatch({ type: ITEM_DELETE, uniqueId: uniqueId });
       dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: itemId });
    }
@@ -70,8 +65,6 @@ function BurgerConstructor() {
 
    const navigate = useNavigate();
 
-   //const orderId = useSelector((state: any) => state.order.orderId);
-
    function orderProcess() {
       if (isLoggedIn) {
          let data: string[] = [];
@@ -83,8 +76,6 @@ function BurgerConstructor() {
          navigate("/login", { replace: true });
       }
    }
-
-   //const dropStyle = isHover ? { background: "#eee" } : { background: "#0f0" };
 
    return (
       <div className={styles.BurgerConstructor}>

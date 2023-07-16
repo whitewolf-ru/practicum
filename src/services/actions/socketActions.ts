@@ -5,6 +5,7 @@ import { TfeedMessageIncoming } from "../../utils/types";
 export const WS_CONNECTION_START: 'WS_CONNECTION_START' = 'WS_CONNECTION_START';
 export const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
 export const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
+export const WS_CONNECTION_CLOSE: 'WS_CONNECTION_CLOSE' = 'WS_CONNECTION_CLOSE';
 export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
 export const WS_GET_FEED: 'WS_GET_FEED' = 'WS_GET_FEED';
 export const WS_SEND_MESSAGE: 'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE';
@@ -21,6 +22,10 @@ export interface IwsConnectionSuccessAction {
 export interface IwsConnectionErrorAction {
   readonly type: typeof WS_CONNECTION_ERROR;
   readonly payload: Event;
+}
+
+export interface IwsConnectionCloseAction {
+  readonly type: typeof WS_CONNECTION_CLOSE;
 }
 
 export interface IwsConnectionClosedAction {
@@ -41,12 +46,14 @@ export type TwsActions =
   | IwsConnectionStart
   | IwsConnectionSuccessAction
   | IwsConnectionErrorAction
+  | IwsConnectionCloseAction
   | IwsConnectionClosedAction
   | IwsGetFeedAction
   | IwsSendMessageAction;
 
 export type TwsStoreActions = {
   wsInit: typeof WS_CONNECTION_START,
+  wsClose: typeof WS_CONNECTION_CLOSE,
   wsSendMessage: typeof WS_SEND_MESSAGE,
   onOpen: typeof WS_CONNECTION_SUCCESS,
   onClose: typeof WS_CONNECTION_CLOSED,

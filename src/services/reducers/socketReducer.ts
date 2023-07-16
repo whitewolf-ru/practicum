@@ -7,7 +7,7 @@ import {
    WS_GET_FEED,
    TwsActions
 } from '../../services/actions/socketActions';
-import { getCurrentTimestamp } from '../../utils/functions';
+// import { getCurrentTimestamp } from '../../utils/functions';
 
 type TwsState = {
    wsConnected: boolean;
@@ -18,12 +18,12 @@ type TwsState = {
 const initialState: TwsState = { wsConnected: false, items: [] };
 
 export const socketReducer = (state = initialState, action: TwsActions) => {
-   console.log("socketReducer",action);
-
+   //console.log("socketReducer", action);
+   
    switch (action.type) {
 
       case WS_CONNECTION_START: {
-         console.log("WS_CONNECTION_START",action.method);
+         // console.log("WS_CONNECTION_START",action.method);
          return {
             ...state,
             wsConnected: false,
@@ -32,7 +32,7 @@ export const socketReducer = (state = initialState, action: TwsActions) => {
       }
 
       case WS_CONNECTION_SUCCESS: {
-         console.log("WS_CONNECTION_SUCCESS");
+        // console.log("WS_CONNECTION_SUCCESS");
          return {
             ...state,
             wsConnected: true
@@ -40,7 +40,7 @@ export const socketReducer = (state = initialState, action: TwsActions) => {
       }
 
       case WS_CONNECTION_ERROR: {
-         console.log("WS_CONNECTION_ERROR");
+         //console.log("WS_CONNECTION_ERROR");
          return {
             ...state,
             wsConnected: false
@@ -48,7 +48,7 @@ export const socketReducer = (state = initialState, action: TwsActions) => {
       }
 
       case WS_CONNECTION_CLOSED: {
-         console.log("WS_CONNECTION_CLOSED");
+         //console.log("WS_CONNECTION_CLOSED");
          return {
             ...state,
             wsConnected: false
@@ -56,7 +56,7 @@ export const socketReducer = (state = initialState, action: TwsActions) => {
       }
 
       case WS_GET_FEED: {
-         console.log("WS_GET_FEED",action.data);
+         //console.log("WS_GET_FEED",action.data);
          return {
             ...state,
             total: action.data.total,

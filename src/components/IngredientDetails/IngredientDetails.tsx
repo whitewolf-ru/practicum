@@ -1,7 +1,6 @@
 
 import React from "react";
 
-//import IngredientsPropsShape from '../IngredientsPropsShape/IngredientsPropsShape';
 import styles from "./IngredientDetails.module.css";
 import { Tingredient } from '../../utils/types'
 
@@ -12,7 +11,7 @@ const IngredientDetails = ({ingredient}: {ingredient: Tingredient}) => {
          <p className="text text_type_main-large">{ingredient?.name}</p>
 
          <center>
-            <table className={`${styles.ingredient} text_color_inactive`}>
+            <table className={`${styles.item} text_color_inactive`}>
                <tbody>
                   <tr>
                      <td> Калории, ккал </td>
@@ -33,9 +32,5 @@ const IngredientDetails = ({ingredient}: {ingredient: Tingredient}) => {
       </div>
    )
 }
-
-//IngredientDetails.propTypes = {
-//   ingredient: IngredientsPropsShape
-//};
 
 export default IngredientDetails;

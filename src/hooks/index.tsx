@@ -5,7 +5,8 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 
-import { AppDispatch, AppThunk, RootState } from "../utils/types";
+//import { AppDispatch, AppThunk, RootState } from "../utils/types";
+import { AppDispatch, RootState } from "../utils/types";
 
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 

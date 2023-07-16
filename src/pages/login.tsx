@@ -23,7 +23,7 @@ const Login = () => {
 
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch(login(values) as any);
+      dispatch(login(values));
    }
 
    return (

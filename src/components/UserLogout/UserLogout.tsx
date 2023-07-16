@@ -8,7 +8,7 @@ import { logout } from "../../services/actions/userActions";
 export function UserLogout() {
 
    const dispatch = useDispatch();
-   dispatch(logout() as any);
+   dispatch(logout());
 
    return (
       <>

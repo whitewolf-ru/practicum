@@ -1,7 +1,5 @@
-//AppDispatch, AppThunk, RootState
 
-// types/index.ts
-import { ThunkAction } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
 
 import store from '../services/store';
@@ -65,5 +63,5 @@ export type AppThunk<TReturn = void> = ActionCreator<
 >;
 
 // Типизация метода dispatch для проверки на валидность отправляемого экшена
-export type AppDispatch = typeof store.dispatch;
-
+//export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;

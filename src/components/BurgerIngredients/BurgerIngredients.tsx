@@ -12,19 +12,10 @@ import { Tingredient } from '../../utils/types'
 function BurgerIngredients() {
 
    const location = useLocation();
-
-   const ingredientsGet = () => (state: any) => state.ingredientsItems.items;
-   const ingredients = useSelector(ingredientsGet());
-
-   //type Titems = {
-   //   handleClick: (item: Tingredient) => void,
-   //   item: Tingredient
-   //}
-
-   // console.log("TEST");
-   const buns = ingredients.filter((item: Tingredient) => item.type === 'bun');
-   const mains = ingredients.filter((item: Tingredient) => item.type === 'main');
-   const sauces = ingredients.filter((item: Tingredient) => item.type === 'sauce');
+   const { items }: { items: Tingredient[] } = useSelector((state) => state.ingredientsItems);
+   const buns = items.filter((item: Tingredient) => item.type === 'bun');
+   const mains = items.filter((item: Tingredient) => item.type === 'main');
+   const sauces = items.filter((item: Tingredient) => item.type === 'sauce');
 
    const [currentTab, setCurrentTab] = React.useState("buns");
 

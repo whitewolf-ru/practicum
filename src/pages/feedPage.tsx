@@ -1,32 +1,24 @@
 
-import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from "../hooks/index";
+import React from 'react';
+//import { useLocation } from 'react-router-dom';
+import { useSelector } from "../hooks/index";
 
-import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+//import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles_global from "./../styles.module.css";
 import styles from "./feedPage.module.css";
-import OrderBrief from '../components/OrderBrief/OrderBrief';
-import { TfeedOrder } from '../utils/types';
+//import OrderBrief from '../components/OrderBrief/OrderBrief';
+//import { TfeedOrder } from '../utils/types';
 import OrdersList from "../components/OrdersList/OrdersList";
 import OrdersDone from "../components/OrdersDone/OrdersDone";
 import OrdersInProgress from "../components/OrdersInProgress/OrdersInProgress";
 
 function Feed() {
+   //const location = useLocation();
+   //const items: TfeedOrder[] = useSelector(state => state.socket);
 
-   //const dispatch = useDispatch();
-   const location = useLocation();
-
-   //useEffect(
-   //   () => { dispatch({ type: WS_CONNECTION_START, method: "orders/all" }) }, [] // eslint-disable-line react-hooks/exhaustive-deps
-   //);
-
-   const items: TfeedOrder[] = useSelector((store: any) => store.socket.items);
-   const total: number = useSelector((store: any) => store.socket.total);
-   const totalToday: number = useSelector((store: any) => store.socket.totalToday);
-   //const items: feedOrder[] = [];
-   //console.log("items", items);
+   const { total }: { total: number } = useSelector(state => state.socket);
+   const { totalToday }: { totalToday: number } = useSelector(state => state.socket);
 
    return (
       <>

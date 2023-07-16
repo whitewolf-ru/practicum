@@ -1,9 +1,7 @@
 
 // Всякая системная шняга
-import React from "react";
+import React, { FC } from "react";
 import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
-//import { useSelector, useDispatch } from "react-redux";
-import { useSelector, useDispatch } from "../../hooks/index";
 
 // Крафтовые сырцы
 import { ingredientsLoad } from "../../services/actions/ingredientsActions";
@@ -28,43 +26,38 @@ import { UserLogout } from "../UserLogout/UserLogout";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { NotFound404 } from '../NotFound404/NotFound404';
 import { LOGIN_SUCCESS } from '../../services/actions/userActions';
-import { WS_CONNECTION_START } from '../../services/actions/socketActions';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSE } from '../../services/actions/socketActions';
+//import { TingredientsLoad } from "../../services/actions/ingredientsActions";
+//import { AppDispatch } from "../../utils/types";
+import { useSelector, useDispatch } from "../../hooks/index";
 
-function App() {
-
+const App: FC = () => {
    const { password_reset_step } = useSelector(state => state.user);
    const location = useLocation();
-   //console.log("location", location);
-   const dispatch: any = useDispatch();
+   const dispatch = useDispatch();
    const source = location.state && location.state.background;
-
    const path = location.pathname;
-   console.log("path", path);
-
    let method = "";
 
    if (path.indexOf("/feed") >= 0) method = "orders/all";
    if (path.indexOf("/profile/orders") >= 0) method = "orders";
 
-   console.log("method", method);
-
-   //const { ingredients, loadRequest, loadFailed } = useSelector(state => state.ingredientsItems);
-   //dispatch({ type: WS_CONNECTION_START, method: "orders/all" })
-
    React.useEffect(() => {
       // Загрузка булок
-      //const path = location?.pathname;
-      //console.log("location", path);
+      //(dispatch: (arg0: TingredientsLoad) => void) => ingredientsLoad();
       dispatch(ingredientsLoad());
       if (cookieGet("username") && cookieGet("username") !== "") dispatch({ type: LOGIN_SUCCESS });
-      if (method != "") dispatch({ type: WS_CONNECTION_START, method: method })
+      method !== "" ?
+         dispatch({ type: WS_CONNECTION_START, method: method })
+         :
+         dispatch({ type: WS_CONNECTION_CLOSE })
+
    }, [dispatch, method]) // eslint-disable-line react-hooks/exhaustive-deps
 
-   const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+   const isLoggedIn = useSelector(store => store.user.isLoggedIn);
 
    const navigate = useNavigate();
 
-   // Все эти художества вместо обыкновенного $(object).hide()
    const modalClose = () => { navigate("/", { replace: true }) }
    const windowClose = () => { navigate("/feed", { replace: true }) }
    const orderClose = () => { navigate("/profile/orders", { replace: true }) }
@@ -103,14 +96,14 @@ function App() {
 
          </Routes>
 
-         {/* Как бы "модальное" окно */}
+         {/* Как бы "модальные" окна */}
 
          {
             source && (
                <Routes>
                   <Route path="/ingredient/:id"
                      element={
-                        <Modal header="детали ингредиента1" onClose={() => modalClose()}>
+                        <Modal header="детали ингредиента" onClose={() => modalClose()}>
                            <Ingredient />
                         </Modal>
                      }

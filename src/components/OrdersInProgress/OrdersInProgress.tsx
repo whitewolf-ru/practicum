@@ -1,19 +1,20 @@
 
 import React from "react";
 
-import { useSelector, useDispatch } from "../../hooks/index";
+import { useSelector } from "../../hooks/index";
 import { TfeedOrder } from '../../utils/types';
 import styles from './OrdersInProgress.module.css';
 
 function OrdersInProgress() {
-   const items = useSelector((state: any) => state.socket.items).filter((item: TfeedOrder) => { return item.status !== "done" });
+   const { items }: { items: TfeedOrder[] } = useSelector(state => state.socket);
+   const itemsList = items.filter((item: TfeedOrder) => { return item.status !== "done" });
    //console.log("items", items);
 
    return (
       <div className={styles.item}>
          {
-            items && items.length > 0 &&
-            items.map(
+            itemsList && itemsList.length > 0 &&
+            itemsList.map(
                (item: TfeedOrder, i: number) => {
                   if (i < 15) {
                      return (

@@ -10,15 +10,14 @@ import styles_global from "./../../styles.module.css";
 import { TconstructorElement } from '../../utils/types'
 
 function OrderDetails() {
-
-   const { items } = useSelector((store: any) => store.constructorItems);
+   const { items }: { items: TconstructorElement[]} = useSelector(store => store.constructorItems);
    const dispatch = useDispatch();
 
    let data: string[] = [];
 
    if (items) items.map((ingredient: TconstructorElement) => data.push(ingredient._id));
 
-   useEffect(() => dispatch(orderUpload(data) as any), []);
+   useEffect(() => dispatch(orderUpload(data)), []);
 
    const orderId = useSelector((state: any) => state.order.orderId);
 

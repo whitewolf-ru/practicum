@@ -9,9 +9,9 @@ import OrderBrief from '..//OrderBrief/OrderBrief';
 import { TfeedOrder } from '../../utils/types';
 
 function OrdersList({ showStatus }: { showStatus?: boolean }) {
-   const items: TfeedOrder[] = useSelector((store: any) => store.socket.items);
-   const total: number = useSelector((store: any) => store.socket.total);
-   const totalToday: number = useSelector((store: any) => store.socket.totalToday);
+   const { items }: { items: TfeedOrder[] } = useSelector(state => state.socket);
+   // const total = useSelector(store => store.socket.total);
+   // const totalToday: number = useSelector(store => store.socket.totalToday);
    const location = useLocation();
    const path = location.pathname;
 
@@ -28,11 +28,11 @@ function OrdersList({ showStatus }: { showStatus?: boolean }) {
                   {
                      items && (
                         items.map(
-                           (item: any, i: number) => {
+                           (item: TfeedOrder, i: number) => {
                               return (
                                  <li key={item.number} className={styles.order}>
                                     <Link to={`${link}${item._id}`} state={{ background: location }} key={i} className={`${styles.link} text BurgerIngredients-li`}>
-                                       <OrderBrief item={item} showStatus={showStatus}/>
+                                       <OrderBrief item={item} showStatus={showStatus} />
                                     </Link>
                                  </li>
                               )

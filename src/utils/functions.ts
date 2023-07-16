@@ -1,21 +1,23 @@
 
-import { api } from "./burger-api";
+//import { api } from "./burger-api";
 
 export function cookieGet(name: string) {
    const matches = document.cookie.match(
       // new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
       new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)')
    );
-   return matches ? decodeURIComponent(matches[1]) : undefined;
+   return matches ? decodeURIComponent(matches[1]) : "";
 }
 
 export function cookieSet(
-{ name, value, props }: {
-   name: string; value?: any; props: {
-      [x: string]: any;
-      expires?: any;
-   };
-}): void {
+   { name, value, props }: {
+      name: string;
+      value?: string | number | boolean | null;
+      props: {
+         [x: string]: number | boolean;
+         expires?: any
+      };
+   }): void {
 
    props = props || {};
 
@@ -31,7 +33,7 @@ export function cookieSet(
       props.expires = exp.toUTCString();
    }
 
-   value = encodeURIComponent(value);
+   if (value) value = encodeURIComponent(value);
 
    let updatedCookie = name + '=' + value;
 
@@ -52,23 +54,25 @@ export function cookieDelete(name: string) {
 }
 
 // Зачем я это написал?
-export async function userGet() {
-   api("auth/user", {
-      headers: { authorization: cookieGet("accessToken") }
-   })
-      .then(res => {
-         if (res && res.success) {
-            console.log("res.user", res.user);
-            return res.user;
-         } else {
-            console.log("Не вышло", res);
-         }
-      })
-
-   //.catch(err => {
-   //   console.log("Вообще ничего не вышло!", err);
-   //})
-
-};
+//export function userGet() {
+//   api("auth/user",
+//      {
+//         headers: { authorization: cookieGet("accessToken") }
+//      }
+//   )
+//      .then(res => {
+//         if (res && res.success) {
+//            console.log("res.user", res.user);
+//            return res.user;
+//         } else {
+//            console.log("Не вышло", res);
+//         }
+//      })
+//
+//   //.catch(err => {
+//   //   console.log("Вообще ничего не вышло!", err);
+//   //})
+//
+//};
 
 export const getCurrentTimestamp = (): number => new Date().getTime() / 1000;

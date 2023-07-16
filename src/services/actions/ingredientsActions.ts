@@ -40,7 +40,7 @@ export type TingredientsActions =
    | IingredientCounterIncrementAction
    | IingredientCounterDecrementAction;
 
-type TingredientsLoad = {
+export type TingredientsLoad = {
    type: string;
    loadRequest?: boolean;
    items?: Tingredient[];
