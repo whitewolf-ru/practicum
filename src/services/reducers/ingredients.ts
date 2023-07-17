@@ -21,7 +21,7 @@ const initialState: Tingredients = {
 const ingredientsReducer = (
    state = initialState,
    action: TingredientsActions
-) => {
+): Tingredients => {
    switch (action.type) {
 
       case INGREDIENTS_LOAD_REQUEST: {
@@ -53,7 +53,7 @@ const ingredientsReducer = (
          return {
             ...state,
                items: state.items.map(
-                  (item: { _id: string; counter: number; }, i: number) =>
+                  (item) =>
                      item._id === action.item._id ?
                         action.item.counter ?
                            { ...item, counter: item.counter + 1 }
@@ -68,7 +68,7 @@ const ingredientsReducer = (
          return {
             ...state,
                items: state.items.map(
-                  (item: { _id: string; counter: number; }, i: number) =>
+                  item =>
                      item._id === action.itemId ?
                         { ...item, counter: item.counter - 1 } : item
                )

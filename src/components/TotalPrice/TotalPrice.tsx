@@ -9,19 +9,7 @@ import { Tingredient } from '../../utils/types'
 
 function TotalPrice() {
 
-   //function fireUser({ firstName, age, isNice }: {
-   //   firstName: string;
-   //   age: number;
-   //   isNice: boolean;
-   //}) {
-   //   // ...
-   //}
-
-   const { items, bun }:
-      {
-         items: Tingredient[];
-         bun: Tingredient
-      } = useSelector((state) => state.constructorItems);
+   const { items, bun } = useSelector((state) => state.constructorItems);
 
    const sum: number = React.useMemo(
       function () {

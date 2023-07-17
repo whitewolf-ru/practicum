@@ -26,29 +26,28 @@ export type Tingredient = {
    counter: number
 }
 
-export type TfeedOrder = {
-   ingredients: string[],
-   _id: string,
-   status: string,
-   number: number,
-   createdAt: string,
-   updatedAt: string
-}
+//export type TfeedOrder = {
+//   ingredients: string[],
+//   _id: string,
+//   status: string,
+//   number: number,
+//   createdAt: string,
+//   updatedAt: string
+//}
 
 // Входящее сообщение для списка заказов
 
-export type TfeedMessageIncoming = {
-   success: boolean,
-   orders: TfeedOrder[],
-   total: 1,
-   totalToday: 1
-}
+//export type TfeedMessageIncoming = {
+//   success: boolean,
+//   orders: TfeedOrder[],
+//   total: 1,
+//   totalToday: 1
+//}
 
 // Всякая байда для redux
 
 export type TconstructorElement = Tingredient & { uniqueId: number, uuid: string, itemIndex: number }
 export type RootState = ReturnType<typeof store.getState>;
-
 export type AppActions = TwsActions | TuserActions;
 
 //export type AppDispatch = ThunkDispatch<RootState, unknown, AppActions>;

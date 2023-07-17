@@ -44,7 +44,6 @@ const App: FC = () => {
 
    React.useEffect(() => {
       // Загрузка булок
-      //(dispatch: (arg0: TingredientsLoad) => void) => ingredientsLoad();
       dispatch(ingredientsLoad());
       if (cookieGet("username") && cookieGet("username") !== "") dispatch({ type: LOGIN_SUCCESS });
       method !== "" ?

@@ -6,10 +6,10 @@ import { useSelector } from "../../hooks/index";
 import styles_global from "../../styles.module.css";
 import styles from "./OrdersList.module.css";
 import OrderBrief from '..//OrderBrief/OrderBrief';
-import { TfeedOrder } from '../../utils/types';
+//import { TfeedOrder } from '../../utils/types';
 
 function OrdersList({ showStatus }: { showStatus?: boolean }) {
-   const { items }: { items: TfeedOrder[] } = useSelector(state => state.socket);
+   const { orders } = useSelector(state => state.socket);
    // const total = useSelector(store => store.socket.total);
    // const totalToday: number = useSelector(store => store.socket.totalToday);
    const location = useLocation();
@@ -26,9 +26,9 @@ function OrdersList({ showStatus }: { showStatus?: boolean }) {
             <div className={styles.page}>
                <div className={styles.block}>
                   {
-                     items && (
-                        items.map(
-                           (item: TfeedOrder, i: number) => {
+                     orders && (
+                        orders.map(
+                           (item, i) => {
                               return (
                                  <li key={item.number} className={styles.order}>
                                     <Link to={`${link}${item._id}`} state={{ background: location }} key={i} className={`${styles.link} text BurgerIngredients-li`}>

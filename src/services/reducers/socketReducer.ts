@@ -9,38 +9,48 @@ import {
 } from '../../services/actions/socketActions';
 // import { getCurrentTimestamp } from '../../utils/functions';
 
-type TwsState = {
+export type TsocketItem = {
+   _id: string;
+   name: string;
+   number: number;
+   ingredients: string[];
+   status: string;
+   createdAt: string;
+   updatedAt: string;
+}
+
+export type TwsState = {
    wsConnected: boolean;
-   items: string[];
+   total: number;
+   totalToday: number;
+   orders: TsocketItem[];
    error?: Event;
 }
 
-const initialState: TwsState = { wsConnected: false, items: [] };
+const initialState: TwsState = { wsConnected: false, orders: [], total: 0, totalToday: 0 };
 
-export const socketReducer = (state = initialState, action: TwsActions) => {
+export const socketReducer = (state = initialState, action: TwsActions): TwsState => {
    //console.log("socketReducer", action);
-   
+
    switch (action.type) {
 
       case WS_CONNECTION_START: {
-         // console.log("WS_CONNECTION_START",action.method);
          return {
             ...state,
             wsConnected: false,
-            items: [...state.items]
+            orders: [...state.orders]
          }
       }
 
       case WS_CONNECTION_SUCCESS: {
-        // console.log("WS_CONNECTION_SUCCESS");
          return {
             ...state,
-            wsConnected: true
+            wsConnected: true,
+            orders: [...state.orders]
          }
       }
 
       case WS_CONNECTION_ERROR: {
-         //console.log("WS_CONNECTION_ERROR");
          return {
             ...state,
             wsConnected: false
@@ -48,7 +58,6 @@ export const socketReducer = (state = initialState, action: TwsActions) => {
       }
 
       case WS_CONNECTION_CLOSED: {
-         //console.log("WS_CONNECTION_CLOSED");
          return {
             ...state,
             wsConnected: false
@@ -56,12 +65,12 @@ export const socketReducer = (state = initialState, action: TwsActions) => {
       }
 
       case WS_GET_FEED: {
-         //console.log("WS_GET_FEED",action.data);
+         console.log("action.data",action.data);
          return {
             ...state,
             total: action.data.total,
             totalToday: action.data.totalToday,
-            items: action.data.orders
+            orders: action.data.orders
          }
       }
 

@@ -19,7 +19,7 @@ function OrderDetails() {
 
    useEffect(() => dispatch(orderUpload(data)), []);
 
-   const orderId = useSelector((state: any) => state.order.orderId);
+   const orderId = useSelector(state => state.order.orderId);
 
    return (
       <div className={styles_global.page}>

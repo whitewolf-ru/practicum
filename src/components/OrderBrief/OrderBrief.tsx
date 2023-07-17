@@ -12,7 +12,7 @@ import PriceTotal from "./PriceTotal/PriceTotal";
 
 function OrderBrief({ item, showStatus }: { item: any, showStatus?: boolean }) {
    const items_max = 5;
-   const order_types: { [key: string]: any } = { "created": "создан", "pending": "в работе", "done": "выполнен" }
+   const order_types: { [key: string]: string } = { "created": "создан", "pending": "в работе", "done": "выполнен" }
    const ingredients = item.ingredients;
    //console.log("ingredients", ingredients);
 

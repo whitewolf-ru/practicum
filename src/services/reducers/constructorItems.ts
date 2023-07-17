@@ -14,7 +14,7 @@ const initialState: Titems = { items: [] };
 
 const nanoid = customAlphabet('1234567890', 32);
 
-const constructorItemsReducer = (state = initialState, action: TconstructorActions) => {
+const constructorItemsReducer = (state = initialState, action: TconstructorActions): Titems => {
 
    switch (action.type) {
 
@@ -37,7 +37,7 @@ const constructorItemsReducer = (state = initialState, action: TconstructorActio
 
       case BUN_DELETE: {
          return {
-            ...state, bun: null,
+            ...state, bun: undefined,
             items: [...state.items]
          }
       }

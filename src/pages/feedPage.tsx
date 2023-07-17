@@ -17,8 +17,8 @@ function Feed() {
    //const location = useLocation();
    //const items: TfeedOrder[] = useSelector(state => state.socket);
 
-   const { total }: { total: number } = useSelector(state => state.socket);
-   const { totalToday }: { totalToday: number } = useSelector(state => state.socket);
+   const { total } = useSelector(state => state.socket);
+   const { totalToday } = useSelector(state => state.socket);
 
    return (
       <>

@@ -17,13 +17,15 @@ import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/construct
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions';
 import { Tingredient } from '../../utils/types';
 import { TconstructorElement } from '../../utils/types';
+//import { TconstructorActions } from '../../services/actions/constructorActions';
+import { RootState } from '../../utils/types';
 
 function BurgerConstructor() {
-   const { items, bun }: { items: TconstructorElement[], bun: TconstructorElement} = useSelector(state => state.constructorItems);
+   const dispatch = useDispatch();
+   const { items, bun } = useSelector(state => state.constructorItems);
    //const ingredientsGet = () => (store => store.ingredientsItems.items;
 
-   const ingredients = useSelector((state: any) => state.ingredientsItems.items);
-   const dispatch: any = useDispatch();
+   const ingredients = useSelector((state: RootState) : Tingredient[] => state.ingredientsItems.items);
    const { isModalOpen, modalOpen, modalClose } = useModal();
    const isLoggedIn = useSelector(store => store.user.isLoggedIn);
 
@@ -35,7 +37,7 @@ function BurgerConstructor() {
    }
 
    // Добавление ингредиентов
-   function itemAdd(item: Tingredient) {
+   function itemAdd(item: TconstructorElement) {
       // Если новая булка, то уменьшить счётчик старой
       if (item.type === "bun" && item._id !== bun?._id && bun) {
          dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: bun._id });
@@ -52,12 +54,13 @@ function BurgerConstructor() {
          isHover: monitor.isOver()
       }),
       drop({ itemId }) {
-         const item = ingredients.filter((item: Tingredient) => { return item._id === itemId })[0];
+         const item = ingredients.filter(item => { return item._id === itemId })[0];
 
          // А может, элемент уже перетащили?
          const isBun = item?.type === "bun";
 
          // Если не булка или булка, но не перенесённая
+         // @ts-ignore: Unreachable code error
          if ((item && !isBun) || (isBun && bun?._id !== item?._id)) itemAdd(item);
 
       }

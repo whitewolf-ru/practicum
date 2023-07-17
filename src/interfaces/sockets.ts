@@ -1,7 +1,7 @@
 // Не используется в версии с redux
 import type { Middleware, MiddlewareAPI } from 'redux';
 
-import { AppDispatch, RootState, TfeedMessageIncoming } from "../utils/types";
+import { AppDispatch, RootState } from "../utils/types";
 import { TwsActions, TwsStoreActions } from "../services/actions/socketActions";
 //import { getCurrentTimestamp } from "../utils/functions";
 import { cookieGet } from "../utils/functions";
@@ -46,8 +46,8 @@ export const socketInterface = (wsUrl: string, wsActions: TwsStoreActions): Midd
                // console.log("onmessage()", event);
                const { data } = event;
                // console.log("data", data);
-               const parsedData: TfeedMessageIncoming = JSON.parse(data);
-               // console.log("parsedData", parsedData);
+               const parsedData = JSON.parse(data);
+               console.log("parsedData", parsedData);
 
                if (event.data === 'ping') {
                   // console.log("ping");

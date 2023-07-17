@@ -2,12 +2,13 @@
 import React from "react";
 
 import { useSelector } from "../../hooks/index";
-import { TfeedOrder } from '../../utils/types';
+//import { TsocketItem } from "../../services/reducers/socketReducer"
 import styles from './OrdersDone.module.css';
 
 function OrdersDone() {
-   const { items }: { items: TfeedOrder[] } = useSelector(state => state.socket);
-   const itemsList = items.filter((item: TfeedOrder) => { return item.status === "done" });
+   const { orders } = useSelector(state => state.socket);
+   console.log("orders",orders);
+   const itemsList = orders && orders.length>0 ? orders.filter(item => { return item.status === "done" }) : [];
 
    const listShow = (column: number) => {
       let content: JSX.Element[] = [];

@@ -1,4 +1,5 @@
-import { TfeedMessageIncoming } from "../../utils/types";
+//import { TfeedMessageIncoming } from "../../utils/types";
+import { TwsState } from "../reducers/socketReducer";
 
 // Всякие типы для сокетов
 
@@ -34,7 +35,7 @@ export interface IwsConnectionClosedAction {
 
 export interface IwsGetFeedAction {
   readonly type: typeof WS_GET_FEED;
-  readonly data: TfeedMessageIncoming;
+  readonly data: TwsState;
 }
 
 export interface IwsSendMessageAction {
