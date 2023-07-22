@@ -2,9 +2,8 @@
 export function IngredientWindow() {
    return (
       <>
-      Ингредиент
+         Ингредиент
       </>
-      
    )
 }
 

@@ -1,7 +1,8 @@
 
 import React, { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/index";
 
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -21,7 +22,7 @@ function PasswordReset() {
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       console.log('password=%s, code=%s', password, code);
-      dispatch(passwordReset({ password: password, token: code }) as any);
+      dispatch(passwordReset({ password: password, token: code }));
    }
    
    return (

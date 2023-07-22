@@ -3,6 +3,7 @@ import { customAlphabet } from 'nanoid';
 
 import { TconstructorElement } from '../../utils/types'
 import { ITEM_ADD, ITEM_DELETE, ITEMS_SWAP, BUN_DELETE, BUN_ADD, CONSTRUCTOR_CLEAR } from '../actions/constructorActions';
+import type { TconstructorActions } from '../actions/constructorActions';
 
 type Titems = {
    bun?: TconstructorElement;
@@ -13,7 +14,7 @@ const initialState: Titems = { items: [] };
 
 const nanoid = customAlphabet('1234567890', 32);
 
-const constructorItemsReducer = (state = initialState, action: any) => {
+const constructorItemsReducer = (state = initialState, action: TconstructorActions): Titems => {
 
    switch (action.type) {
 
@@ -36,7 +37,7 @@ const constructorItemsReducer = (state = initialState, action: any) => {
 
       case BUN_DELETE: {
          return {
-            ...state, bun: null,
+            ...state, bun: undefined,
             items: [...state.items]
          }
       }

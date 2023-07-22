@@ -1,6 +1,7 @@
 
 import React, { FormEvent } from 'react';
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
+import { useDispatch } from "../hooks/index";
 import { Link } from 'react-router-dom';
 
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -25,7 +26,7 @@ const Register = () => {
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       console.log('name=%s, email=%s, password=%s', name, email, password);
-      dispatch(register({ name: name, email: email, password: password }) as any);
+      dispatch(register({ name: name, email: email, password: password }));
    }
 
    return (

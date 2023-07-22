@@ -1,6 +1,7 @@
 
 import React, { FC, ReactElement } from "react";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks/index";
 import { useLocation, Navigate } from 'react-router-dom';
 
 type TprotectedRouteElement = {
@@ -9,7 +10,7 @@ type TprotectedRouteElement = {
 }
 
 export const ProtectedRoute: FC<TprotectedRouteElement> = ({ element, anonymous = false }) => {
-  const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+  const { isLoggedIn } = useSelector(state => state.user);
 
   const location = useLocation();
   const from = location.state?.from || '/';

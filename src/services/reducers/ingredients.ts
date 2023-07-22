@@ -1,7 +1,9 @@
+
 import {
    INGREDIENTS_LOAD_REQUEST, INGREDIENTS_LOAD_ERROR, INGREDIENTS_LOAD_SUCCESS, INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT
 } from '../actions/ingredientsActions';
 
+import type { TingredientsActions } from '../actions/ingredientsActions';
 import { Tingredient } from '../../utils/types'
 
 type Tingredients = {
@@ -18,16 +20,8 @@ const initialState: Tingredients = {
 
 const ingredientsReducer = (
    state = initialState,
-   action: {
-      type: any;
-      items: any;
-      item: {
-         _id: string;
-         counter?: number;
-      };
-      itemId: any;
-   }
-) => {
+   action: TingredientsActions
+): Tingredients => {
    switch (action.type) {
 
       case INGREDIENTS_LOAD_REQUEST: {
@@ -56,13 +50,10 @@ const ingredientsReducer = (
       }
 
       case INGREDIENTS_COUNTER_INCREMENT: {
-         console.log("INGREDIENTS_COUNTER_INCREMENT");
          return {
             ...state,
-            //items: {
-            //   ...state.items,
                items: state.items.map(
-                  (item: { _id: string; counter: number; }, i: number) =>
+                  (item) =>
                      item._id === action.item._id ?
                         action.item.counter ?
                            { ...item, counter: item.counter + 1 }
@@ -70,22 +61,17 @@ const ingredientsReducer = (
                            { ...item, counter: 1 }
                         : item
                )
-            //}
          };
       }
 
       case INGREDIENTS_COUNTER_DECREMENT: {
-         //console.log("INGREDIENTS_COUNTER_DECREMENT");
          return {
             ...state,
-            //items: {
-            //   ...state.items,
                items: state.items.map(
-                  (item: { _id: string; counter: number; }, i: number) =>
+                  item =>
                      item._id === action.itemId ?
                         { ...item, counter: item.counter - 1 } : item
                )
-            //}
          };
       }
 

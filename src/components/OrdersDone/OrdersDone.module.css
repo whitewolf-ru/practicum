@@ -1,0 +1,12 @@
+.order {
+   list-style-type: none;
+}
+
+.columns {
+   display: flex;
+   justify-content: center;
+}
+
+.item {
+   padding: 5px;
+}

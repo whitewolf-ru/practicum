@@ -1,0 +1,32 @@
+.order {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+}
+
+.header {
+   display: flex;
+   justify-content: space-between;
+   padding: 10px;
+}
+
+.name {
+   text-align: left;
+   margin: 5px 0px;
+   padding: 10px;
+}
+
+.items {
+   display: flex;
+   flex-direction: row;
+   display: relative;
+   height: 72px;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px;
+}
+
+.order_status {
+   text-align: left;
+   padding-left: 10px;
+}

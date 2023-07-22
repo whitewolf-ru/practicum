@@ -1,5 +1,5 @@
+
 import React, { FC } from 'react';
-//import PropTypes from 'prop-types';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Tabs.module.css';
@@ -28,9 +28,5 @@ const Tabs: FC<Props> = (props) => {
       </div>
    )
 }
-
-//Tabs.propTypes = {
-//   activeTab: PropTypes.string
-//};
 
 export default Tabs;

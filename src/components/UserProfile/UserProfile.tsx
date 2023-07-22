@@ -1,6 +1,6 @@
 
 import React, { useState, FormEvent } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "../../hooks/index";
 
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -14,14 +14,17 @@ export function UserProfile() {
    const dispatch = useDispatch();
 
    React.useEffect(() => {
-      dispatch(userLoad(cookieGet("accessToken")) as any);
+      dispatch(userLoad(cookieGet("accessToken")));
    }, [])
 
-   const user = useSelector((state: any) => state.user);
-   if (!user.name) {
-      user.name = "";
-      user.email = "";
-   }
+   //const user = useSelector(store => store.user);
+   //if (!user.name) {
+   //   user.name = "";
+   //   user.email = "";
+   //}
+
+   type Tuser = { name: string; email: string; }
+   const user: Tuser = { name: "", email: "" };
 
    const [name, setName] = React.useState(user.name);
    const [email, setEmail] = React.useState(user.email);
@@ -52,10 +55,10 @@ export function UserProfile() {
 
    const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
       e.preventDefault();
-      dispatch(userProfileUpdate({ name: name, email: email, password: password, accessToken: cookieGet("accessToken") }) as any);
+      dispatch(userProfileUpdate({ name: name, email: email, password: password, accessToken: cookieGet("accessToken") }));
    }
 
-   const handleReset = (e: void) => {
+   const handleReset = () => {
       //e.preventDefault();
       setName(cookieGet("username"));
       setEmail(cookieGet("email"));

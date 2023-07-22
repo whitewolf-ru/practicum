@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "../../hooks/index";
 import { useNavigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 
@@ -17,29 +17,27 @@ import { ITEM_ADD, ITEM_DELETE, BUN_ADD } from '../../services/actions/construct
 import { INGREDIENTS_COUNTER_INCREMENT, INGREDIENTS_COUNTER_DECREMENT } from '../../services/actions/ingredientsActions';
 import { Tingredient } from '../../utils/types';
 import { TconstructorElement } from '../../utils/types';
+//import { TconstructorActions } from '../../services/actions/constructorActions';
+import { RootState } from '../../utils/types';
 
 function BurgerConstructor() {
+   const dispatch = useDispatch();
+   const { items, bun } = useSelector(state => state.constructorItems);
+   //const ingredientsGet = () => (store => store.ingredientsItems.items;
 
-   const itemsGet = () => (state: any) => state.constructorItems;
-   const { items, bun } = useSelector(itemsGet());
-   const ingredientsGet = () => (state: any) => state.ingredientsItems.items;
-   const ingredients = useSelector(ingredientsGet());
-
-   const dispatch: any = useDispatch();
-
+   const ingredients = useSelector((state: RootState) : Tingredient[] => state.ingredientsItems.items);
    const { isModalOpen, modalOpen, modalClose } = useModal();
-
-   const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+   const isLoggedIn = useSelector(store => store.user.isLoggedIn);
 
    // Удаление ингредиентов
    function itemDelete(uniqueId: string, itemId: string) {
-      console.log("itemDelete, itemId=%s, uniqueId=%s",itemId,uniqueId);
+      console.log("itemDelete, itemId=%s, uniqueId=%s", itemId, uniqueId);
       dispatch({ type: ITEM_DELETE, uniqueId: uniqueId });
       dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: itemId });
    }
 
    // Добавление ингредиентов
-   function itemAdd(item: Tingredient) {
+   function itemAdd(item: TconstructorElement) {
       // Если новая булка, то уменьшить счётчик старой
       if (item.type === "bun" && item._id !== bun?._id && bun) {
          dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: bun._id });
@@ -56,20 +54,19 @@ function BurgerConstructor() {
          isHover: monitor.isOver()
       }),
       drop({ itemId }) {
-         const item = ingredients.filter((item: Tingredient) => { return item._id === itemId })[0];
+         const item = ingredients.filter(item => { return item._id === itemId })[0];
 
          // А может, элемент уже перетащили?
          const isBun = item?.type === "bun";
 
          // Если не булка или булка, но не перенесённая
+         // @ts-ignore: Unreachable code error
          if ((item && !isBun) || (isBun && bun?._id !== item?._id)) itemAdd(item);
 
       }
    })
 
    const navigate = useNavigate();
-
-   //const orderId = useSelector((state: any) => state.order.orderId);
 
    function orderProcess() {
       if (isLoggedIn) {
@@ -82,8 +79,6 @@ function BurgerConstructor() {
          navigate("/login", { replace: true });
       }
    }
-
-   //const dropStyle = isHover ? { background: "#eee" } : { background: "#0f0" };
 
    return (
       <div className={styles.BurgerConstructor}>

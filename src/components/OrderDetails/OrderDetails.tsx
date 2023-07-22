@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "../../hooks/index";
 
 import { orderUpload } from "../../services/actions/order";
 import styles from './OrderDetails.module.css';
@@ -10,17 +10,16 @@ import styles_global from "./../../styles.module.css";
 import { TconstructorElement } from '../../utils/types'
 
 function OrderDetails() {
-
-   const { items } = useSelector((store: any) => store.constructorItems);
+   const { items }: { items: TconstructorElement[]} = useSelector(store => store.constructorItems);
    const dispatch = useDispatch();
 
    let data: string[] = [];
 
    if (items) items.map((ingredient: TconstructorElement) => data.push(ingredient._id));
 
-   useEffect(() => dispatch(orderUpload(data) as any), []);
+   useEffect(() => dispatch(orderUpload(data)), []);
 
-   const orderId = useSelector((state: any) => state.order.orderId);
+   const orderId = useSelector(state => state.order.orderId);
 
    return (
       <div className={styles_global.page}>

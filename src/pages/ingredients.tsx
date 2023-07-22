@@ -1,9 +1,8 @@
 
 import React from 'react';
-import './ingredients.css';
+import styles from './ingredients.module.css';
 
 function ingredients() {
-
    return (
       <div>
          Ингредиенты

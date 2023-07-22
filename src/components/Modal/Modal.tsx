@@ -1,5 +1,5 @@
 
-import React, { FC, PropsWithChildren } from "react";
+import React, { FC, PropsWithChildren, FormEvent } from "react";
 import ReactDOM from "react-dom";
 
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
@@ -17,6 +17,7 @@ type TProps = PropsWithChildren<{
 const Modal: FC<TProps> = ({ header, onClose, children }) => {
 
    const MODAL_ROOT = document.getElementById("react-modals");
+   console.log("onClose",onClose);
    //const onClose = onClose;
 
    const keyCheck = (e: KeyboardEvent) => {
@@ -30,7 +31,7 @@ const Modal: FC<TProps> = ({ header, onClose, children }) => {
    }, [])
 
    // Давим клик внутри окна
-   function clickSuppressor(e: any): void {
+   function clickSuppressor(e: FormEvent): void {
       e.stopPropagation();
    }
 

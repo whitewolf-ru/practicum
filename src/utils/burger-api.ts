@@ -6,7 +6,7 @@ export const checkResponse = (response: Response) => {
   return Promise.reject(`Ошибка ${response.status}`);
 };
 
-const checkSuccess = (response: { success: any; }) => {
+const checkSuccess = (response: { success?: boolean; }) => {
   if (response && response.success) {
     return response;
   }
@@ -25,7 +25,7 @@ export const api_request = (method: string, options: RequestInit | undefined) =>
     .then(checkSuccess);
 };
 
-export const login = async (data: { email: any; password: any; }) => {
+export const login = async (data: { email: string; password: string; }) => {
    return await fetch(`${API}/auth/login`, {
       method: 'POST',
       mode: 'cors',
