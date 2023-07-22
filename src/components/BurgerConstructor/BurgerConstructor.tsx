@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDrop } from 'react-dnd';
 
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { customAlphabet } from 'nanoid';
 
 import styles from './BurgerConstructor.module.css';
 import ConstructorItem from '../ConstructorItem/ConstructorItem';
@@ -43,6 +44,9 @@ function BurgerConstructor() {
          dispatch({ type: INGREDIENTS_COUNTER_DECREMENT, itemId: bun._id });
       }
 
+      const nanoid = customAlphabet('1234567890', 32);
+      item.uuid = nanoid();
+
       item.type === "bun" ? dispatch({ type: BUN_ADD, item: item }) : dispatch({ type: ITEM_ADD, item: item });
 
       dispatch({ type: INGREDIENTS_COUNTER_INCREMENT, item: item });
@@ -54,6 +58,7 @@ function BurgerConstructor() {
          isHover: monitor.isOver()
       }),
       drop({ itemId }) {
+         console.log("drop",itemId);
          const item = ingredients.filter(item => { return item._id === itemId })[0];
 
          // А может, элемент уже перетащили?
@@ -81,7 +86,7 @@ function BurgerConstructor() {
    }
 
    return (
-      <div className={styles.BurgerConstructor}>
+      <div id={"constructor"} className={styles.BurgerConstructor}>
 
          {bun && <ConstructorItem item={bun} isLocked={true} type="top" handleClose={() => { }} />}
 

@@ -17,13 +17,16 @@ function OrderBrief({ item, showStatus }: { item: any, showStatus?: boolean }) {
    //console.log("ingredients", ingredients);
 
    const { items }: { items: Tingredient[] } = useSelector(state => state.ingredientsItems);
+   //console.log("items",items);
 
    const price = ingredients.map(
       (item: string, i: number) => {
          const ingredient = items.filter((i: Tingredient) => { return i._id === item })[0];
-         return ingredient.price;
+         //console.log("ingredient",ingredient);
+         return ingredient?.price;
       }
    )
+
    //console.log("price", price);
 
    const price_total = price.reduce((partialSum: number, a: number) => partialSum + a, 0);

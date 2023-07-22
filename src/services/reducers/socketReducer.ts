@@ -65,12 +65,12 @@ export const socketReducer = (state = initialState, action: TwsActions): TwsStat
       }
 
       case WS_GET_FEED: {
-         console.log("action.data",action.data);
+         //console.log("action.data",action.data);
          return {
             ...state,
-            total: action.data.total,
-            totalToday: action.data.totalToday,
-            orders: action.data.orders
+            total: action.data?.total,
+            totalToday: action.data?.totalToday,
+            orders: action.data?.orders
          }
       }
 

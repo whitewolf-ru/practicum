@@ -1,7 +1,6 @@
 
-import { customAlphabet } from 'nanoid';
-
 import { TconstructorElement } from '../../utils/types'
+//import { customAlphabet } from 'nanoid';
 import { ITEM_ADD, ITEM_DELETE, ITEMS_SWAP, BUN_DELETE, BUN_ADD, CONSTRUCTOR_CLEAR } from '../actions/constructorActions';
 import type { TconstructorActions } from '../actions/constructorActions';
 
@@ -12,14 +11,14 @@ type Titems = {
 
 const initialState: Titems = { items: [] };
 
-const nanoid = customAlphabet('1234567890', 32);
+//const nanoid = customAlphabet('1234567890', 32);
 
 const constructorItemsReducer = (state = initialState, action: TconstructorActions): Titems => {
 
    switch (action.type) {
 
       case ITEM_ADD: {
-         action.item.uuid = nanoid();
+         //action.item.uuid = nanoid();
 
          return {
             ...state, bun: state.bun,
@@ -28,7 +27,7 @@ const constructorItemsReducer = (state = initialState, action: TconstructorActio
       }
 
       case BUN_ADD: {
-         action.item.uuid = nanoid();
+         //action.item.uuid = nanoid();
          return {
             ...state, bun: action.item,
             items: [...state.items]
@@ -43,7 +42,7 @@ const constructorItemsReducer = (state = initialState, action: TconstructorActio
       }
 
       case ITEM_DELETE: {
-         console.log("ITEM_DELETE, uniqueId=%s",action.uniqueId);
+         //console.log("ITEM_DELETE, uniqueId=%s",action.uniqueId);
          return {
             ...state, bun: state.bun,
             items: state.items.filter((item) => item.uniqueId !== action.uniqueId)

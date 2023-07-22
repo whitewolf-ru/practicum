@@ -34,6 +34,7 @@ import { useSelector, useDispatch } from "../../hooks/index";
 const App: FC = () => {
    const { password_reset_step } = useSelector(state => state.user);
    const location = useLocation();
+   console.log("location",location);
    const dispatch = useDispatch();
    const source = location.state && location.state.background;
    const path = location.pathname;
